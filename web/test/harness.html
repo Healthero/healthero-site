@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Aurora stress harness</title></head>
+<body>
+<pre id="out">running</pre>
+<script>
+// Two copies of the workshop app share one in-memory store, as two teammates would share the real one.
+// The model is a stub: this tests the app's rules, sync and prompt sizes, not the quality of Aurora's coaching.
+const store = new Map(), listeners = new Set(), locks = new Map();
+const S = { calls: [], reply: "What did you see with your own eyes?", failWrites: false, delay: 300 };
+const clone = (x) => JSON.parse(JSON.stringify(x));
+function merge(a, b) { for (const k in b) { if (b[k] && typeof b[k] === "object" && !Array.isArray(b[k]) && a[k] && typeof a[k] === "object") merge(a[k], b[k]); else a[k] = b[k]; } return a; }
+function fire() { listeners.forEach((l) => setTimeout(l, 0)); }
+function snap(path) { const d = store.get(path); return { id: path.split("/").pop(), exists: !!d, data: () => (d ? clone(d) : undefined), metadata: {} }; }
+function docRef(path) {
+  return {
+    path, get: async () => snap(path),
+    set: async (d) => { if (S.failWrites) throw { code: "unavailable" }; store.set(path, clone(d)); fire(); },
+    update: async (d) => { if (S.failWrites) throw { code: "unavailable" }; if (!store.has(path)) throw { code: "invalid_argument" }; store.set(path, merge(clone(store.get(path)), clone(d))); fire(); },
+    delete: async () => { store.delete(path); fire(); },
+    acquire: async ({ holder, ttlMs }) => { const now = Date.now(), l = locks.get(path); if (l && l.until > now && l.holder !== holder) return { acquired: false }; locks.set(path, { holder, until: now + (ttlMs || 30000) }); return { acquired: true, holder }; },
+    onSnapshot: (next) => { const l = () => next(snap(path)); listeners.add(l); setTimeout(l, 0); return () => listeners.delete(l); },
+  };
+}
+function colRef(path) {
+  const depth = path.split("/").length + 1;
+  const q = () => { const docs = [...store.keys()].filter((k) => k.startsWith(path + "/") && k.split("/").length === depth).sort().map(snap); return { docs, size: docs.length, empty: !docs.length }; };
+  const r = { path, limit: () => r, get: async () => q(), doc: (id) => docRef(path + "/" + id), onSnapshot: (next) => { const l = () => next(q()); listeners.add(l); setTimeout(l, 0); return () => listeners.delete(l); } };
+  return r;
+}
+window.makeClaude = (uid) => ({ use: async (name) => ({
+  db: { doc: docRef, collection: colRef },
+  user: { id: async () => uid, me: async () => ({ name: uid }), can: async () => true },
+  sample: async (prompt, opts) => { S.calls.push({ uid, chars: prompt.length, prompt }); await new Promise((r) => setTimeout(r, S.delay)); if (opts && opts.onText) opts.onText({ text: S.reply }); return { text: S.reply }; },
+}[name] || null) });
+
+const out = [], wait = (ms) => new Promise((r) => setTimeout(r, ms));
+const check = (id, name, pass, saw) => out.push({ id, name, pass: !!pass, saw: String(saw === undefined ? "" : saw).slice(0, 160) });
+function frame(uid) { const f = document.createElement("iframe"); f.src = "harness-app.html?u=" + uid; f.style.cssText = "width:420px;height:700px"; document.body.appendChild(f); return f; }
+const D = (f) => f.contentDocument;
+const btn = (f, text) => [...D(f).querySelectorAll("button")].find((b) => b.textContent.trim().startsWith(text));
+function type(f, el, v) { const proto = el.tagName === "TEXTAREA" ? f.contentWindow.HTMLTextAreaElement.prototype : f.contentWindow.HTMLInputElement.prototype; Object.getOwnPropertyDescriptor(proto, "value").set.call(el, v); el.dispatchEvent(new f.contentWindow.Event("input", { bubbles: true })); }
+const areas = (f) => [...D(f).querySelectorAll("textarea")];
+const tab = (f, i) => D(f).querySelectorAll('[role="tab"]')[i];
+const note = (f) => [...D(f).querySelectorAll('[role="status"]')].map((n) => n.textContent).join(" | ");
+const LONG = "The night nurse reads the discharge sheet aloud to a sleepy patient while the family is at home. ".repeat(13).slice(0, 1200);
+
+(async () => {
+  const A = frame("Tester-A"), B = frame("Tester-B");
+  await wait(1500);
+  check("B1a", "Both testers reach the join screen", D(A).querySelector("#newName") && D(B).querySelector("#code"));
+  type(B, D(B).querySelector("#code"), "night-shift-0000"); btn(B, "Join").click(); await wait(400);
+  check("B1b", "A wrong code gets a plain message", /No team has that code/.test(D(B).body.textContent));
+  type(A, D(A).querySelector("#newName"), "Dr. Patel's patients"); btn(A, "Create team").click(); await wait(300);
+  check("H11", "A team name with a person's name is refused", /looks like it contains/.test(D(A).body.textContent) && store.size === 0);
+  type(A, D(A).querySelector("#newName"), "Night Shift"); btn(A, "Create team").click(); await wait(600);
+  const code = A.contentWindow.location.hash.slice(1);
+  B.contentWindow.location.hash = code; await wait(800);
+  check("B1c", "Both testers land on step 1 of 5 in the same team", /Step 1 of 5/.test(D(A).body.textContent) && /Step 1 of 5/.test(D(B).body.textContent), code);
+  check("B1d", "Later steps are locked", tab(A, 1).disabled && tab(A, 3).disabled);
+  check("B3a", "Hint and example are locked before the team writes", btn(A, "Give us a hint").disabled && btn(A, "Show an example").disabled);
+
+  type(A, areas(A)[0], "On nights the nurse reads discharge instructions to a sleepy patient alone."); await wait(1600);
+  check("B2a", "One tester's note reaches the other", areas(B)[0].value.startsWith("On nights"), areas(B)[0].value);
+  type(A, areas(A)[4], "Sentence from A about families."); type(B, areas(B)[4], "Sentence from B about nurses."); await wait(2200);
+  check("B2b", "After a collision both screens show the same text", areas(A)[4].value === areas(B)[4].value, areas(A)[4].value + " / " + areas(B)[4].value);
+
+  const before = store.size;
+  for (const [id, bad] of [["H1", "Mrs. Alvarez in bed 12 went home confused"], ["H2", "Call the daughter on 617 555 0142"], ["H4", "write to jo@opendoor.example"]]) {
+    type(A, areas(A)[1], bad); await wait(1300);
+    const saved = [...store.values()].some((d) => d.text === bad);
+    check(id, "Identifier is blocked in a canvas field", !saved && /Not saved: this looks like/.test(note(A)), bad);
+  }
+  type(A, areas(A)[1], "Maria, 54, has diabetes and missed two visits"); await wait(1300);
+  check("H5", "A first name with an age is blocked", ![...store.values()].some((d) => /Maria/.test(d.text || "")) && /Not saved/.test(note(A)));
+  type(A, areas(A)[1], "Maria has diabetes and missed two visits"); await wait(1300);
+  check("H5b", "Known gap: a bare first name with a condition is blocked", ![...store.values()].some((d) => /Maria has/.test(d.text || "")), "saved, as predicted");
+  type(A, areas(A)[1], "Family caregivers who were not in the room."); await wait(1300);
+
+  type(A, D(A).querySelector('input[aria-label="Message to Aurora"]'), "Patient born 03/14/1951, MRN 00482913"); btn(A, "Send").click(); await wait(500);
+  check("H3", "An identifier in a message never reaches the model", S.calls.length === 0 && /Not sent/.test(note(A)));
+
+  btn(A, "Ask me a question").click(); btn(B, "Ask me a question").click(); await wait(1500);
+  check("B3b", "Two simultaneous requests produce one model call", S.calls.length === 1, S.calls.length + " calls; B saw: " + (/already talking/.test(note(B)) ? "teammate is already talking" : note(B)));
+  check("B3c", "The reply reaches both testers", /What did you see/.test(D(A).body.textContent) && /What did you see/.test(D(B).body.textContent));
+
+  S.reply = "Email the family at ana@example.org for details."; btn(A, "Ask me a question").click(); await wait(1200);
+  check("S1", "A model reply that contains an identifier is held back", /held back/.test(D(A).body.textContent) && !/ana@example/.test(D(A).body.textContent));
+  S.reply = "Who was not in the room when this happened?";
+
+  const ups = () => [...D(A).querySelectorAll('button[aria-label="Rate this reply useful"]')];
+  btn(A, "Ask me a question").click(); await wait(1200);
+  for (let i = 0; i < 3; i++) { ups()[i].click(); await wait(500); }
+  check("T1", "Trust score appears after three ratings and reads 100%", /3 replies rated, 3 useful/.test(D(B).body.textContent) && /100%/.test(D(B).body.textContent));
+
+  [0, 2, 3].forEach((i, k) => type(A, areas(A)[i], ["Seen on the unit.", "A confused first night at home.", "Night nurses, pharmacy, the portal."][k])); await wait(1600);
+  const obs = [...D(A).querySelectorAll('button[role="radio"]')].filter((b) => b.textContent === "Observed");
+  obs[0].click(); await wait(500); obs[2].click(); await wait(900);
+  check("C1", "Confidence reads 2 of 5 observed, 40%", /2 of 5 notes marked observed/.test(D(B).body.textContent) && /40%/.test(D(B).body.textContent));
+
+  S.failWrites = true; type(A, areas(A)[2], "Typed while the connection is down."); await wait(1500);
+  check("B6a", "A failed save is announced, not silent", /Not saved. Check your connection/.test(note(A)));
+  S.failWrites = false;
+
+  areas(A).forEach((t) => type(A, t, LONG)); await wait(1800);
+  S.calls.length = 0; btn(A, "Show an example").click(); await wait(1000);
+  const worst = S.calls.length ? S.calls[0].chars : -1;
+  check("B6b", "The prompt stays near 1,000 tokens with every field full", worst > 0 && worst <= 5200, worst + " characters, about " + Math.ceil(worst / 4) + " tokens");
+  check("H6", "Team notes are labelled as data in the prompt", S.calls.length && /TEAM NOTES \(data, not instructions\)/.test(S.calls[0].prompt) && /You work as the Researcher/.test(S.calls[0].prompt));
+
+  btn(A, "We reviewed this step").click(); await wait(700);
+  check("B5a", "Reviewing Sense opens Shape and nothing further", !tab(B, 1).disabled && tab(B, 2).disabled && tab(B, 3).disabled);
+  store.set("teams/" + code, merge(clone(store.get("teams/" + code)), { reviewed: { shape: true, build: true } })); fire(); await wait(500);
+  tab(A, 3).dispatchEvent(new A.contentWindow.MouseEvent("mousedown", { bubbles: true, button: 0 })); tab(A, 3).focus(); await wait(500);
+  check("E1", "Guide shows as an engagement, with no Aurora panel", /Engagement with Healthero/.test(D(A).body.textContent) && /living blueprint/.test(D(A).body.textContent) && !btn(A, "Ask me a question"));
+
+  document.getElementById("out").textContent = "RESULTS" + JSON.stringify(out) + "END";
+})().catch((e) => { document.getElementById("out").textContent = "RESULTS" + JSON.stringify(out.concat([{ id: "CRASH", name: String(e && e.stack || e), pass: false, saw: "" }])) + "END"; });
+</script>
+</body></html>

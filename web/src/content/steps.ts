@@ -5,6 +5,10 @@ export type Step = {
   id: string; name: string; question: string; summary: string; leave: string;
   fields: Field[]; skill: string; cards: number[];
   agents: string[]; uxSkills: string[]; guardrail: string;
+  // The specialist who leads this step, and how it behaves. Sent to the model with the step skill.
+  lead: string; role: string;
+  // Steps one to three are self-serve with Aurora. Guide and Govern run as a Healthero engagement.
+  tier: "self" | "engagement"; brings?: string[];
 };
 
 export const STEPS: Step[] = [
@@ -22,7 +26,8 @@ export const STEPS: Step[] = [
     skill: "Goal: a one-sentence problem in the team's own words. Useful moves: ask what was observed, not the solution; ask why up to five times toward a root cause; who is affected most and what it costs them; who decides, who influences, who is missing; what was tried before and why it fell short. Done when the problem names who, what happens, and the cost.",
     cards: [4, 1, 7, 5],
     agents: ["Researcher", "Synthetic persona"], uxSkills: ["ux-researcher", "synthetic-persona"],
-    guardrail: "No patient details. A synthetic persona never counts as evidence." },
+    guardrail: "No patient details. A synthetic persona never counts as evidence.",
+    lead: "Researcher", role: "You work as the Researcher: you separate what was seen from what is assumed and you look for who is missing.", tier: "self" },
   { id: "shape", name: "Shape",
     question: "What needs to change, where is the leverage, and what would we try first?",
     summary: "Name what has to change and where the leverage is. Build the worst-day scenario your idea must survive. Those scenarios become the requirements.",
@@ -36,7 +41,8 @@ export const STEPS: Step[] = [
     skill: "Goal: one testable idea. Useful moves: reframe as How might we; is the barrier capability, opportunity or motivation; what pushes and what holds the status quo; the worst day before the good day; the person with the least slack; what if we removed a step instead of adding one. Done when the idea reads If we do X then Y for Z.",
     cards: [2, 3, 10, 0],
     agents: ["Ideation facilitator", "Scenario writer", "Jobs catalog"], uxSkills: ["ideation-facilitator", "scenario-generator", "jtbd-catalog-generator"],
-    guardrail: "You answer first. Every idea carries its worst day." },
+    guardrail: "You answer first. Every idea carries its worst day.",
+    lead: "Ideation facilitator", role: "You work as the Ideation facilitator: you open options before narrowing and you insist every idea meets its worst day.", tier: "self" },
   { id: "build", name: "Build",
     question: "What is the smallest version we can put in front of real people, and what did they do with it?",
     summary: "Make the smallest version people can try, and put it in front of the first people who need it most. Record what they do, then what they say.",
@@ -50,35 +56,26 @@ export const STEPS: Step[] = [
     skill: "Goal: evidence and a decision. Useful moves: prove it low-tech first; choose a first audience that needs it most; record what people did before what they said; premortem: it failed, why; the team decides keep, change or stop, never Aurora. Done when the team has written its decision and its reason.",
     cards: [8, 11, 9],
     agents: ["Experience designer", "Visual designer", "Interface developer"], uxSkills: ["ux-designer", "visual-designer", "ui-developer"],
-    guardrail: "Accessible components and made-up records only. A person approves before anything is shared." },
+    guardrail: "Accessible components and made-up records only. A person approves before anything is shared.",
+    lead: "Experience designer", role: "You work as the Experience designer: you push for the smallest thing a real person can try and for what they did, not what they said.", tier: "self" },
   { id: "guide", name: "Guide",
-    question: "Who has to do something differently, and what helps them do it?",
-    summary: "Work out whose day changes, what they need to do it, and the case in the decision-maker's own words.",
-    leave: "a 90-day plan with one goal, three actions and one owner.",
-    fields: [
-      { id: "who", label: "Who has to change what they do, and what do they give up?" },
-      { id: "help", label: "What they need: skill, time, permission or proof" },
-      { id: "case", label: "Who decides, and the case in their words" },
-      { id: "out", label: "Our 90-day plan: one goal, three actions, one owner" },
-    ],
-    skill: "Goal: a plan people can follow. Useful moves: name each person whose day changes and what it costs them; is the gap skill, time, permission or proof; say the case in the decision-maker's words with one piece of evidence and one story; whose voice is missing; one 90-day goal, three actions, one owner. Done when the plan has an owner and a first action.",
-    cards: [6, 0, 1],
-    agents: ["Usability reviewer", "Manual writer"], uxSkills: ["usability-expert", "manual-writer"],
-    guardrail: "Plain language, tried by one real person before it is called ready." },
+    question: "Does what we built still match how the work is really done, and who keeps that picture current?",
+    summary: "Align what you built to a living blueprint: a shared, current picture of who does what, which decisions belong to whom, and what the solution must never do. When the work changes, the blueprint changes with it.",
+    leave: "a living blueprint your team owns, and a build aligned to it.",
+    fields: [], skill: "", cards: [],
+    agents: ["Blueprint keeper", "Usability reviewer", "Manual writer"], uxSkills: ["jtbd-catalog-generator", "usability-expert", "manual-writer"],
+    guardrail: "The blueprint changes only when a named person approves the change.",
+    lead: "Blueprint keeper", role: "", tier: "engagement",
+    brings: ["Healthero maps the work as it is really done, with the people who do it", "Your prototype is checked against that map, job by job", "The blueprint is kept current as rules, staff and tools change"] },
   { id: "govern", name: "Govern",
-    question: "Who owns this, what could go wrong, and how will we know?",
-    summary: "Decide who owns it, who can say stop, what could go wrong and how you will know.",
-    leave: "guardrails, two measures and a review date.",
-    fields: [
-      { id: "owner", label: "Who owns it after us, and who can say stop?" },
-      { id: "harm", label: "What could go wrong, and who would carry it?" },
-      { id: "measure", label: "What we measure, and how often we look" },
-      { id: "out", label: "Our guardrails: the rules we keep and the date we review" },
-    ],
-    skill: "Goal: guardrails the team will keep. Useful moves: who owns it and who can stop it; who benefits and who carries the burden; privacy, safety and fairness risks in plain words; one measure of benefit and one measure of harm; when sunk cost should not keep it alive; a review date. Done when there is an owner, a stop rule, two measures and a date.",
-    cards: [9, 8, 10, 11],
-    agents: ["Evaluator", "Decision ledger"], uxSkills: ["scenario-generator", "usability-expert"],
-    guardrail: "A named owner, a stop rule and a review date, or it does not ship." },
+    question: "Which decisions stay with people, what may agents propose, and what happens when someone overrides them?",
+    summary: "Live decision protocols run in the background alongside your people. They say which decisions stay human, what agents may propose, what is logged when someone overrides, and when to stop.",
+    leave: "decision protocols running with one team, a record of overrides, and a review rhythm.",
+    fields: [], skill: "", cards: [],
+    agents: ["Protocol monitor", "Evaluator", "Decision ledger"], uxSkills: ["scenario-generator", "usability-expert"],
+    guardrail: "Agents propose. A named person decides, and every override is logged.",
+    lead: "Protocol monitor", role: "", tier: "engagement",
+    brings: ["Each decision gets an owner, a rule for what agents may propose, and a stop condition", "Protocols run in the background and surface only what needs a person", "Confidence and trust scores are reviewed on a set rhythm, with the people affected"] },
 ];
 
 export const LENSES: Record<string, [string, string]> = {

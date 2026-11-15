@@ -59,7 +59,7 @@ export function StepCards() {
             <CardHeader>
               <div className="flex items-baseline justify-between gap-3">
                 <span className="font-display text-5xl font-light leading-none text-primary" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-                {i === 0 && <Badge>Free</Badge>}
+                {i === 0 && <Badge>Free</Badge>}{s.tier === "engagement" && <Badge variant="accent">Engagement</Badge>}
               </div>
               <CardTitle className="pt-2">{s.name}</CardTitle>
             </CardHeader>

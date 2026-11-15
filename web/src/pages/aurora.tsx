@@ -34,8 +34,8 @@ function Page() {
           actions={<><Button asChild size="lg"><a href={START}>Start free with Aurora</a></Button><Button asChild size="lg" variant="outline"><a href="mailto:info@healthero.io?subject=Aurora%20Line%20fit%20call">Book a 20-minute fit call</a></Button></>}
           aside={<div aria-hidden="true" className="size-56 rounded-full md:size-72" style={{ background: "conic-gradient(from 200deg, #16e7ce, #7e7cfe, #ce28c1, #262261, #16e7ce)", WebkitMask: "radial-gradient(circle, transparent 46%, #000 47%)", mask: "radial-gradient(circle, transparent 46%, #000 47%)" }} />} />
         <Band />
-        <Section id="line" eyebrow="The line" title="Five steps. The first is free."><StepCards /></Section>
-        <Section id="team" eyebrow="The team behind each step" title="Agents do the legwork. You sign every step." lead="Each step has specialist agents and one rule they cannot break. Nothing moves to the next step until a person on your team has reviewed it." className="pt-0 md:pt-0">
+        <Section id="line" eyebrow="The line" title="Five steps. The first is free." lead="You run Sense, Shape and Build yourself with Aurora. Guide and Govern are an engagement with Healthero, for teams ready to put what they built to work."><StepCards /></Section>
+        <Section id="team" eyebrow="The team behind each step" title="Agents do the legwork. You sign every step." lead="Each step has its own specialist agents and one rule they cannot break. Nothing moves to the next step until a person on your team has reviewed it." className="pt-0 md:pt-0">
           <div className="flex flex-col gap-10"><AgentTable /><ScoreExplainers /></div>
         </Section>
         <section className="container grid gap-10 pb-16 md:grid-cols-2 md:pb-24"><Pairs title="Why Aurora" items={WHY} /><Pairs title="We won't" items={WONT} /></section>

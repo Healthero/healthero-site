@@ -27,7 +27,7 @@ function Page() {
             </Card>))}
           </div>
         </Section>
-        <Section id="method" eyebrow="One method" title="Five steps, the same ones Aurora uses" lead="An engagement runs the steps with your team and your community. Agents do the legwork at each step, under one rule they cannot break, and a person signs before the next step opens." className="pt-0 md:pt-0">
+        <Section id="method" eyebrow="One method" title="Five steps, the same ones Aurora uses" lead="Aurora takes a team through Sense, Shape and Build. An engagement goes further: Guide aligns the work to a living blueprint, and Govern keeps live decision protocols running in the background with your people." className="pt-0 md:pt-0">
           <div className="flex flex-col gap-10">
             <ol className="grid list-none gap-x-8 gap-y-4 p-0 sm:grid-cols-2 lg:grid-cols-5">{STEPS.map((s, i) => (
               <li key={s.id} className="border-t-4 border-foreground pt-3"><p className="font-display text-2xl font-bold">{i + 1}. {s.name}</p><p className="text-[15px]">{s.question}</p></li>))}
