@@ -167,12 +167,17 @@ function Team({ cap, code, onLeave }: { cap: Cap; code: string; onLeave: () => v
   const some = step.fields.some((f) => text(step.id, f.id).length >= 20);
   const out = text(step.id, "out").length >= 3;
   const persona: string = (team && team.persona) || "";
+  const assessment: string = (team && team.assessment) || "";
+  const [copied, setCopied] = React.useState("");
   const ci = team && team.cards ? team.cards[step.id] : undefined;
   const card = typeof ci === "number" ? DECK[ci] : null;
   const can = !!cap.sample && cap.canWrite && !busy && !!team;
 
   function prompt(level: string, last: string) {
+    const sf = STEPS[0].fields.filter((f) => text("sense", f.id).length >= 3);
+    const so = sf.filter((f) => fields["sense_" + f.id]?.basis === "observed").length;
     return buildPrompt({ step, sense: STEPS[0], level, last, persona, card, chat,
+      confidenceLine: (confidence(so, sf.length) ?? 0) + "%. " + so + " of " + sf.length + " notes were observed. The rest are assumptions.",
       earlier: STEPS.slice(0, cur).filter((x) => x.tier === "self").map((x) => ({ name: x.name, out: text(x.id, "out") })),
       lens: team && LENSES[team.lens] ? LENSES[team.lens][1] : undefined,
       field: (sid, fid) => ({ text: text(sid, fid), basis: fields[sid + "_" + fid]?.basis || "assumed" }) });
@@ -196,12 +201,13 @@ function Team({ cap, code, onLeave }: { cap: Cap; code: string; onLeave: () => v
       const pre: Msg[] = last ? [{ who: "user", by: cap.uid || "", text: clip(last, 400) }] : [];
       setLive(pre.concat([{ who, text: "..." }]));
       const res = await cap.sample(p, { modelTier: "quick", onText: (ev: any) => setLive(pre.concat([{ who, text: (typeof ev === "string" ? ev : ev && ev.text) || "..." }])) });
-      let reply = clip((res && res.text) || "", 900);
+      let reply = level === "assessment" ? String((res && res.text) || "").trim().slice(0, 1400) : clip((res && res.text) || "", 900);
       if (!reply) throw { code: "empty" };
       const leak = screen(reply);
       if (leak) reply = "Aurora's reply was held back because it looked like it contained " + leak + ". Ask again.";
       const tokens = Math.ceil((p.length + reply.length) / 4);
       if (level === "persona") await cap.db.doc(base).update({ persona: reply });
+      else if (level === "assessment") await cap.db.doc(base).update({ assessment: reply });
       else await writeChat((m) => m.concat(pre, [{ who, text: reply }]));
       await cap.db.doc(base).update({ aiCalls: ((team && team.aiCalls) || 0) + 1, aiTokens: ((team && team.aiTokens) || 0) + tokens });
       setNote(HELP);
@@ -251,6 +257,7 @@ function Team({ cap, code, onLeave }: { cap: Cap; code: string; onLeave: () => v
             <CardHeader><CardTitle className="font-sans text-sm uppercase tracking-wider text-accent">What your team carries in</CardTitle></CardHeader>
             <CardContent className="flex flex-col gap-2">
               {STEPS.filter((x) => x.tier === "self").map((x) => <p key={x.id}><strong>{x.name}:</strong> {text(x.id, "out") || "Not written yet."}</p>)}
+              {assessment && <p className="whitespace-pre-wrap border-t pt-3 text-[15px]"><strong>Strategic assessment</strong>{"\n"}{assessment}</p>}
             </CardContent>
           </Card>
           <p>This step runs with Healthero alongside your team. To talk it through, write to info@healthero.io.</p>
@@ -284,6 +291,19 @@ function Team({ cap, code, onLeave }: { cap: Cap; code: string; onLeave: () => v
               </div>
             </CardContent>
           </Card>
+          {step.id === "sense" && (
+            <Card>
+              <CardHeader><CardTitle className="font-sans text-sm uppercase tracking-wider text-accent">Strategic assessment</CardTitle></CardHeader>
+              <CardContent className="flex flex-col items-start gap-3">
+                <p className={"whitespace-pre-wrap text-[15px] " + (assessment ? "" : "text-muted-foreground")}>{assessment || (reviewed.sense ? "Sense is reviewed. Ask Aurora for a one-page assessment your team can send on." : "Review this step to unlock a one-page assessment of your problem: what you saw, what you guessed, and what to check first.")}</p>
+                <div className="flex flex-wrap items-center gap-2">
+                  <Button size="sm" variant="outline" disabled={!can || !reviewed.sense} onClick={() => ask("assessment", "")}>{assessment ? "Write it again" : "Write our assessment"}</Button>
+                  {assessment && <Button size="sm" variant="outline" onClick={() => { try { navigator.clipboard.writeText(assessment).then(() => setCopied("Copied."), () => setCopied("Copying isn't allowed here. Select the text instead.")); } catch { setCopied("Copying isn't allowed here. Select the text instead."); } }}>Copy</Button>}
+                  <span role="status" className="text-sm text-muted-foreground">{copied}</span>
+                </div>
+              </CardContent>
+            </Card>
+          )}
           <div className="flex flex-wrap items-center gap-3">
             <Button disabled={!cap.canWrite || !allFilled || !!reviewed[step.id]} onClick={() => cap.db.doc(base).update({ reviewed: { [step.id]: true } }).catch(() => {})}>{reviewed[step.id] ? "Step reviewed" : "We reviewed this step"}</Button>
             <p role="status" className="text-sm text-muted-foreground">{reviewed[step.id] ? (step.id === "build" ? "Guide and Govern are open to read. They run as an engagement." : "The next step is open.") : allFilled ? "" : "Fill in every field in this step first."}</p>

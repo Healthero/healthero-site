@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Aurora by Healthero</title>
-<meta name="description" content="Aurora walks care teams from a hunch to a prototype real people have reacted to.">
+<meta name="description" content="Aurora walks care teams from a hunch to a prototype real people have reacted to, and shows how much was seen and how much was guessed.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <!-- Colors, fonts and radii come from the shared design system. Edit them there, not here. -->
@@ -74,6 +74,10 @@ h3 { font-weight: 700; font-size: 1.5rem; line-height: 1.2; }
 .pairs li { padding-block: 1rem; border-bottom: 1px solid hsl(var(--border)); }
 .layers { display: grid; gap: 1rem; margin-top: 2.5rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
 footer.site .button { background: #231f20; color: #fff; border-color: #231f20; }
+.sample { max-width: 760px; margin-top: 2.5rem; }
+.sample dl { display: grid; grid-template-columns: minmax(7rem, auto) 1fr; gap: 0.6rem 1rem; margin: 0; }
+.sample dt { font-weight: 700; color: hsl(var(--primary)); }
+.sample dd { margin: 0; }
 </style>
 </head>
 <body>
@@ -84,9 +88,10 @@ footer.site .button { background: #231f20; color: #fff; border-color: #231f20; }
   <nav aria-label="Main">
     <ul>
       <li><a href="#line">The line</a></li>
+      <li><a href="#free">Free assessment</a></li>
       <li><a href="#team">The team</a></li>
-      <li><a href="#thinking">How Aurora thinks</a></li>
-      <li><a href="#case">Where it began</a></li>
+      <li><a href="#plans">Plans</a></li>
+            <li><a href="#case">Where it began</a></li>
       <li><a class="button" href="#start">Get started</a></li>
     </ul>
   </nav>
@@ -96,8 +101,8 @@ footer.site .button { background: #231f20; color: #fff; border-color: #231f20; }
   <div id="top" class="hero wrap">
     <div class="copy">
       <p class="kicker">Aurora Line</p>
-      <h1>Idea to evidence</h1>
-      <p class="lead">You have an idea for better care and no first step. Aurora walks you from a hunch to a prototype <strong>real people have reacted to</strong>, and sharpens your own thinking on the way.</p>
+      <h1>An idea you can answer for</h1>
+      <p class="lead">Aurora walks your team from a hunch to a prototype real people have reacted to, and shows at every step <strong>how much you have seen and how much you have guessed</strong>.</p>
       <div class="actions">
         <a class="button large" href="mailto:info@healthero.io?subject=Aurora%20early%20access">Ask for early access</a>
         <a class="button large outline" href="https://workshop.healthero.ai">Try the workshop edition</a>
@@ -152,6 +157,28 @@ footer.site .button { background: #231f20; color: #fff; border-color: #231f20; }
     </ol>
   </section>
   </div>
+
+  <section id="free" class="wrap">
+    <p class="kicker">What you get free</p>
+    <h2>A strategic assessment at the end of Sense</h2>
+    <p class="lead">One page your team can send to a manager, a mentor or a funder. This one is made up.</p>
+    <article class="card sample">
+      <p class="kicker">Made-up example · Strategic assessment</p>
+      <h3>Night-shift discharge teaching</h3>
+      <dl>
+        <dt>The problem</dt><dd>Families who are not in the room at a night discharge go home with instructions they have not been taught, and some come back.</dd>
+        <dt>Confidence</dt><dd>40%. Two of five notes were observed on the unit. Three are assumptions.</dd>
+        <dt>Check these first</dt><dd>That return visits are tied to night discharges. That families want a call the next morning. That the interpreter line is the bottleneck.</dd>
+        <dt>Next step</dt><dd>Sit with three families at tomorrow's discharges and write down what they ask.</dd>
+      </dl>
+    </article>
+  </section>
+
+  <section id="after" class="wrap">
+    <p class="kicker">After the pitch</p>
+    <h2>The hackathon ended. The idea did not.</h2>
+    <p class="lead">Innovation programs get an idea to a pitch. Aurora takes it from there: to a prototype people have tried, a decision you can defend, and a clear account of what still rests on a guess. If you run a program, your teams can start free.</p>
+  </section>
 
   <section id="team" class="wrap">
     <p class="kicker">The team behind each step</p>
@@ -238,6 +265,17 @@ footer.site .button { background: #231f20; color: #fff; border-color: #231f20; }
     </div>
   </section>
 
+  <section id="plans" class="wrap">
+    <p class="kicker">Plans</p>
+    <h2>Start free. Pay when the work has to hold.</h2>
+    <div class="layers">
+      <article class="card"><p class="kicker">Free</p><h3>Sense</h3><p>Find the real problem with Aurora and leave with a strategic assessment.</p></article>
+      <article class="card"><p class="kicker">By team, monthly</p><h3>Aurora Line</h3><p>Sense, Shape and Build with Aurora, and a monthly review of your confidence and trust scores with a person.</p></article>
+      <article class="card"><p class="kicker">Retainer, with Healthero</p><h3>Guide and Govern</h3><p>A living blueprint and live decision protocols, kept current alongside your team. <a href="https://healthero.io">See the practice at healthero.io</a></p></article>
+    </div>
+    <p class="lead">Prices on request while Aurora is in testing. Write to info@healthero.io.</p>
+  </section>
+
   <section id="case" class="wrap">
     <p class="kicker">Where it began</p>
     <h2>An advisor that teaches</h2>
@@ -249,7 +287,7 @@ footer.site .button { background: #231f20; color: #fff; border-color: #231f20; }
 <footer class="site" id="start">
   <div class="wrap">
     <div class="top">
-      <p class="line">Bring the idea. <strong>Leave with evidence.</strong></p>
+      <p class="line">Bring the idea. <strong>Leave able to answer for it.</strong></p>
       <a class="button large" href="mailto:info@healthero.io?subject=Aurora%20early%20access">Ask for early access: info@healthero.io</a>
     </div>
     <div class="trail">

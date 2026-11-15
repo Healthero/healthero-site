@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Healthero Practice</title>
-<meta name="description" content="Healthero works alongside nurses, schools and health systems to turn care problems into things people can use.">
+<meta name="description" content="Healthero keeps AI-assisted care accountable to the people who hold the license: a 30-day audit drill, then a living blueprint and live decision protocols.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 <!-- Colors, fonts and radii come from the shared design system. Edit them there, not here. -->
@@ -68,6 +68,15 @@ h3 { font-weight: 700; font-size: 1.5rem; line-height: 1.2; }
 .pill.ahead { background: transparent; border: 1px solid hsl(var(--foreground)); }
 .badge { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
 .also { margin-top: 1.5rem; max-width: var(--width-text); }
+.fact { margin-top: 2rem; max-width: var(--width-text); padding-left: 1rem; border-left: 4px solid hsl(var(--primary)); }
+.grid.two { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+.sample dl { display: grid; grid-template-columns: minmax(7rem, auto) 1fr; gap: 0.5rem 1rem; margin: 0; font-size: 0.9375rem; }
+.sample dt { font-weight: 700; }
+.sample dd { margin: 0; }
+.scroll.tight { margin-top: 0; }
+table.mini { min-width: 480px; font-size: 0.875rem; }
+table.mini th, table.mini td { padding: 0.6rem 0.75rem 0.6rem 0; }
+table.mini tbody th { font-family: var(--font-body); font-size: 0.875rem; }
 .contact { font-size: 1.125rem; }
 </style>
 </head>
@@ -78,7 +87,8 @@ h3 { font-weight: 700; font-size: 1.5rem; line-height: 1.2; }
   <a class="brand" href="#top">HEALTHERO</a>
   <nav aria-label="Main">
     <ul>
-      <li><a href="#practice">Practice</a></li>
+      <li><a href="#drill">Audit drill</a></li>
+      <li><a href="#practice">Retainers</a></li>
       <li><a href="#method">Method</a></li>
       <li><a href="#work">Collaborations</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -91,12 +101,12 @@ h3 { font-weight: 700; font-size: 1.5rem; line-height: 1.2; }
 <main id="main">
   <div id="top" class="hero wrap">
     <div class="copy">
-      <p class="kicker">Healthcare innovation practice</p>
-      <h1>Sense. Shape. Build. Guide. Govern.</h1>
-      <p class="lead">Healthero works alongside nurses, schools and health systems to turn care problems into things people can use. <strong>We do the work with you.</strong></p>
+      <p class="kicker">Accountable AI in care</p>
+      <h1>Who decides when AI is in the room?</h1>
+      <p class="lead">Healthero writes the answer down with the nurses who hold the license, decision by decision, and keeps it current. <strong>We do the work with you.</strong></p>
       <div class="actions">
-        <a class="button large" href="#contact">Work with us</a>
-        <a class="button large outline" href="https://healthero.ai">Try Aurora yourself</a>
+        <a class="button large" href="#drill">Start with a 30-day audit drill</a>
+        <a class="button large outline" href="#samples">See what you get</a>
       </div>
     </div>
     <div class="bars" aria-hidden="true">
@@ -105,34 +115,95 @@ h3 { font-weight: 700; font-size: 1.5rem; line-height: 1.2; }
   </div>
   <hr class="rule">
 
-  <section id="practice" class="wrap">
-    <p class="kicker">The practice</p>
-    <h2>Three ways to work together</h2>
+  <section id="drill" class="wrap">
+    <p class="kicker">Start here</p>
+    <h2>The 30-day audit drill</h2>
+    <p class="lead">One unit. One workflow where AI assists care. Thirty days. We map who decides what, test whether your team could explain it to a regulator, and hand back the gaps.</p>
     <div class="grid">
       <article class="card">
-        <p class="kicker">For teams with a problem worth solving</p>
-        <h3>Sense and Shape engagement</h3>
-        <p>Field research with the people who live the problem, then scenarios, a prototype and a test. Aurora does this with one person in an afternoon. We do it with your team and your community over weeks.</p>
-        <p class="leave"><strong>You leave with:</strong> what people need, a tested prototype, and a decision you can defend.</p>
+        <p class="kicker">Week 1</p>
+        <h3>The decision map</h3>
+        <p>Every decision the workflow touches, who owns it, and what the AI may and may not do. Written with the nurses on the unit.</p>
       </article>
       <article class="card">
-        <p class="kicker">For nursing leaders bringing AI into care</p>
-        <h3>AOS for Health Systems</h3>
-        <p>An operating model that keeps AI-assisted care accountable to the nurse: which decisions stay with the nurse, what AI may propose, what is logged when a nurse overrides it, and how value is shown to the board.</p>
-        <p class="leave"><strong>You leave with:</strong> the model running on one unit, a living blueprint of its decisions, and a team that can run it without us.</p>
+        <p class="kicker">Weeks 2 and 3</p>
+        <h3>The drill</h3>
+        <p>We ask the questions an auditor would. Where an answer is missing or lives in one person's head, we mark it.</p>
       </article>
       <article class="card">
-        <p class="kicker">For schools, societies and programs</p>
-        <h3>Workshops and hackathons</h3>
-        <p>Facilitated innovation sessions where nurse-led teams work a real health challenge with AI as a thinking partner, not an answer machine.</p>
-        <p class="leave"><strong>You leave with:</strong> teams who have framed a problem, imagined its future and pitched a first step.</p>
+        <p class="kicker">Week 4</p>
+        <h3>The report</h3>
+        <p>What holds, what doesn't, and what to fix first. Short enough to take to a board.</p>
+      </article>
+    </div>
+    <p class="fact">In one survey of 182 hospital leaders, 22% were highly confident they could give a regulator a complete explanation of their AI within 30 days. <a href="https://healthcarefinancenews.com/news/hospitals-are-underfunding-artificial-intelligence-governance-report-finds">Black Book Research, reported November 2025</a>.</p>
+    <p class="lead">A fixed fee, agreed before we start. <a href="mailto:info@healthero.io?subject=30-day%20audit%20drill">Ask about a drill: info@healthero.io</a></p>
+  </section>
+
+  <section id="practice" class="wrap">
+    <p class="kicker">Then, month by month</p>
+    <h2>Two retainers, for work that has to keep holding</h2>
+    <div class="grid">
+      <article class="card">
+        <p class="kicker">For a unit or a product team putting something into use</p>
+        <h3>Guide</h3>
+        <p>A living blueprint of the work: who does what, which decisions are whose, and what the solution must never do. Updated every month with the people who do the work.</p>
+        <p class="leave"><strong>Each month:</strong> a current blueprint, and a build checked against it.</p>
+      </article>
+      <article class="card">
+        <p class="kicker">For a health system or vendor with AI in clinical workflows</p>
+        <h3>Govern</h3>
+        <p>Decision protocols for up to three workflows: what stays human, what agents may propose, and what is logged when someone overrides. They run in the background, alongside your people.</p>
+        <p class="leave"><strong>Each month:</strong> an override review with the unit. Each quarter: an audit drill.</p>
+      </article>
+      <article class="card">
+        <p class="kicker">How it is sold</p>
+        <h3>Terms a unit can sign</h3>
+        <p>A monthly fee. Three months to start, then cancel with 30 days' notice. Each retainer names what the month produces. No hourly billing.</p>
+        <p class="leave"><strong>Prices:</strong> on request, after a first conversation.</p>
+      </article>
+    </div>
+    <p class="also"><strong>Also:</strong> workshops and hackathons for schools, societies and programs, where nurse-led teams work a real health challenge with AI as a thinking partner.</p>
+  </section>
+
+  <section id="samples" class="wrap">
+    <p class="kicker">What you get</p>
+    <h2>A decision protocol and a blueprint, on one page each</h2>
+    <p class="lead">Both examples are made up. No real unit, patient or product is described.</p>
+    <div class="grid two">
+      <article class="card sample">
+        <p class="kicker">Made-up example · Decision protocol</p>
+        <h3>Sending AI-drafted discharge instructions home</h3>
+        <dl>
+          <dt>Who decides</dt><dd>The discharging nurse. Always.</dd>
+          <dt>The agent may</dt><dd>Draft the instructions in plain language, translate them, and flag any medication line it is unsure of.</dd>
+          <dt>The agent may not</dt><dd>Change a dose or an instruction, or send anything the nurse has not signed.</dd>
+          <dt>Logged on override</dt><dd>What the nurse changed, and why, in one line.</dd>
+          <dt>Stop condition</dt><dd>Three corrected medication lines in a month pauses drafting on that unit until the review.</dd>
+          <dt>Reviewed</dt><dd>Monthly, with the unit.</dd>
+        </dl>
+      </article>
+      <article class="card sample">
+        <p class="kicker">Made-up example · Living blueprint, three rows</p>
+        <h3>Discharge on a medical unit</h3>
+        <div class="scroll tight">
+          <table class="mini">
+            <thead><tr><th scope="col">Job</th><th scope="col">Decision owner</th><th scope="col">Agent's part</th><th scope="col">Never</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Teach the family</th><td>Discharging nurse</td><td>Drafts a one-page summary</td><td>Teaches in place of a person</td></tr>
+              <tr><th scope="row">Confirm medicines</th><td>Nurse, with pharmacy</td><td>Lists changes since admission</td><td>Resolves a mismatch</td></tr>
+              <tr><th scope="row">Arrange follow-up</th><td>Case manager</td><td>Proposes open appointment times</td><td>Books without consent</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="leave"><strong>Kept current:</strong> when a rule, a role or a tool changes, the row changes, and a named person approves it.</p>
       </article>
     </div>
   </section>
 
   <section id="method" class="wrap">
     <p class="kicker">One method</p>
-    <h2>Five steps, the same ones Aurora uses</h2>
+    <h2>Five steps, from an idea to work that holds</h2>
     <p class="lead">Aurora takes a team through Sense, Shape and Build. An engagement goes further: Guide aligns the work to a living blueprint, and Govern keeps live decision protocols running in the background with your people.</p>
     <ol class="steps">
       <li>
@@ -244,9 +315,9 @@ h3 { font-weight: 700; font-size: 1.5rem; line-height: 1.2; }
 
 <footer class="site">
   <div class="wrap">
-    <p class="line">Bring the problem. <strong>We do the work with you.</strong></p>
+    <p class="line">Agents propose. <strong>A named person decides.</strong></p>
     <div class="trail">
-      <span>Practice / Method / Collaborations / Contact</span>
+      <span>Audit drill / Retainers / Method / Collaborations / Contact</span>
       <span>© 2026 Healthero LLC. All rights reserved</span>
     </div>
   </div>

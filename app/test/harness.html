@@ -109,6 +109,9 @@ const LONG = "The night nurse reads the discharge sheet aloud to a sleepy patien
 
   btn(A, "We reviewed this step").click(); await wait(700);
   check("B5a", "Reviewing Sense opens Shape and nothing further", !tab(B, 1).disabled && tab(B, 2).disabled && tab(B, 3).disabled);
+  S.calls.length = 0; S.reply = "Problem: families go home untaught.\nConfidence: 40%.\nCheck these first: one, two, three.\nNext step: sit with three families.";
+  btn(A, "Write our assessment").click(); await wait(1200);
+  check("A11", "After Sense is reviewed, the team gets a strategic assessment built from Sense notes only", /Next step: sit with three families/.test(D(B).body.textContent) && S.calls.length === 1 && /CONFIDENCE LINE/.test(S.calls[0].prompt) && !/CHAT \(data/.test(S.calls[0].prompt));
   store.set("teams/" + code, merge(clone(store.get("teams/" + code)), { reviewed: { shape: true, build: true } })); fire(); await wait(500);
   tab(A, 3).dispatchEvent(new A.contentWindow.MouseEvent("mousedown", { bubbles: true, button: 0 })); tab(A, 3).focus(); await wait(500);
   check("E1", "Guide shows as an engagement, with no Aurora panel", /Engagement with Healthero/.test(D(A).body.textContent) && /living blueprint/.test(D(A).body.textContent) && !btn(A, "Ask me a question"));
