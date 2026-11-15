@@ -298,7 +298,7 @@ function Team({ cap, code, onLeave }: { cap: Cap; code: string; onLeave: () => v
               {shown.map((m, i) => {
                 const mine = m.who === "user";
                 return (
-                  <div key={i} className={"max-w-[92%] whitespace-pre-wrap break-words px-3 py-2 " + (mine ? "self-end bg-field text-field-foreground" : "self-start bg-background" + (m.who === "persona" ? " border-l-4 border-accent" : ""))}>
+                  <div key={i} className={"max-w-[92%] whitespace-pre-wrap break-words px-3 py-2 " + (mine ? "self-end rounded-md bg-primary text-primary-foreground" : "self-start rounded-md bg-background" + (m.who === "persona" ? " border-l-4 border-accent" : ""))}>
                     <span className={"block text-xs font-bold " + (mine ? "" : m.who === "persona" ? "text-accent" : "text-primary")}>{m.who === "aurora" ? "Aurora" : m.who === "persona" ? "Persona (synthetic)" : m.by === cap.uid ? cap.name : "A teammate"}</span>
                     {m.text}
                     {!mine && i < chat.length && (
