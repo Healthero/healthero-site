@@ -45,6 +45,12 @@
   --radius-control: 8px;
   --stone-400: #A5987F; /* taupe: eyebrows at 22px and up only */
   --gold: #E6B94A;
+  /* Flat tints for diagrams, with ink text on top. Never for buttons or states. */
+  --tint-cobalt: #D9E0F8;
+  --tint-sea: #CFE7E0;
+  --tint-vermilion: #F9D4CF;
+  --tint-gold: #FBF1D6;
+  --stage: #E9E5E0; /* stone 100: the stage that shapes and diagrams sit on */
   /* One gradient per screen, inside a shape, never behind text. */
   --gradient-tide: linear-gradient(180deg, #1D3AB5 0%, #3E9682 55%, #B4DEBF 100%);
   --gradient-ember: linear-gradient(180deg, #C42C1E 0%, #EE8A66 55%, #E6B94A 100%);

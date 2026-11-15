@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Healthero Practice</title>
-<meta name="description" content="Healthero keeps AI-assisted care accountable to the people who hold the license: a 30-day audit drill, then a living blueprint and live decision protocols.">
+<title>Healthero: decision design for health software</title>
+<meta name="description" content="Healthero is a decision design agency. We help health software teams reach the market faster by designing who decides what, person or agent.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 <!-- Colors, fonts and radii come from the shared design system. Edit them there, not here. -->
@@ -69,15 +69,36 @@ h3 { font-weight: 700; font-size: 1.5rem; line-height: 1.2; }
 .badge { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
 .also { margin-top: 1.5rem; max-width: var(--width-text); }
 .fact { margin-top: 2rem; max-width: var(--width-text); padding-left: 1rem; border-left: 4px solid hsl(var(--primary)); }
-.grid.two { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
-.sample dl { display: grid; grid-template-columns: minmax(7rem, auto) 1fr; gap: 0.5rem 1rem; margin: 0; font-size: 0.9375rem; }
-.sample dt { font-weight: 700; }
-.sample dd { margin: 0; }
-.scroll.tight { margin-top: 0; }
-table.mini { min-width: 480px; font-size: 0.875rem; }
-table.mini th, table.mini td { padding: 0.6rem 0.75rem 0.6rem 0; }
-table.mini tbody th { font-family: var(--font-body); font-size: 0.875rem; }
-.contact { font-size: 1.125rem; }
+/* The stage: stone 100 with hairlines, the ground that shapes and diagrams sit on. */
+.stage { position: relative; overflow: hidden; background-color: var(--stage); background-image: linear-gradient(hsl(var(--border)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--border)) 1px, transparent 1px); background-size: 56px 56px; border-bottom: 1px solid hsl(var(--foreground)); }
+.stage::before, .stage::after { content: ""; position: absolute; border: 1px solid hsl(var(--foreground)); border-radius: 50%; pointer-events: none; }
+.stage::before { width: 520px; height: 520px; right: -140px; top: -180px; }
+.stage::after { width: 260px; height: 260px; right: 220px; bottom: -150px; }
+.stage > * { position: relative; z-index: 1; }
+.stage.band { margin-top: var(--space-section); border-top: 1px solid hsl(var(--foreground)); padding-bottom: var(--space-section); }
+.stage.band::before { right: -180px; top: -330px; }
+.stage.band::after { display: none; }
+.hero .copy { background: hsl(var(--background)); padding: 2rem; border: 1px solid hsl(var(--foreground)); }
+/* Decision blueprint: lanes down, steps across, a track of nodes through the middle. */
+.bpwrap { margin-top: 2.5rem; background: hsl(var(--card)); border: 1px solid hsl(var(--foreground)); }
+table.bp { min-width: 1040px; border-collapse: separate; border-spacing: 0; font-size: 0.875rem; }
+table.bp thead th { padding: 0.75rem; text-align: left; border-bottom: 1px solid hsl(var(--border)); }
+table.bp td, table.bp tbody th { padding: 0.5rem; border-bottom: 0; vertical-align: top; }
+table.bp td { border-left: 1px dashed hsl(var(--input)); width: 22%; }
+table.bp tbody th { position: sticky; left: 0; z-index: 2; background: hsl(var(--card)); width: 150px; font-family: var(--font-body); font-size: 0.75rem; }
+.lane { display: block; padding: 0.5rem 0.6rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.2; }
+.bcard { padding: 0.55rem 0.65rem; line-height: 1.35; }
+.gold { background: var(--tint-gold); } .sea { background: var(--tint-sea); } .cobalt { background: var(--tint-cobalt); } .vermilion { background: var(--tint-vermilion); }
+.lane.agent, .bcard.agent { background: hsl(var(--card)); outline: 1.5px dashed hsl(var(--primary)); outline-offset: -1.5px; }
+.lane.plain, .bcard.plain { background: hsl(var(--card)); outline: 1px solid hsl(var(--border)); outline-offset: -1px; }
+.lane.out, .bcard.out { background: hsl(var(--secondary)); }
+.rung { display: block; width: fit-content; margin-top: 0.4rem; padding: 0.1rem 0.45rem; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); font-size: 0.6875rem; font-weight: 700; border-radius: 999px; }
+tr.track td, tr.track th { background: var(--tint-cobalt); text-align: center; border-left: 0; padding-block: 0.9rem; }
+tr.track th span { display: block; padding: 0.5rem 0.6rem; background: hsl(var(--foreground)); color: hsl(var(--background)); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-align: left; }
+tr.track p { font-size: 0.8125rem; }
+.node { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 6.5rem; height: 6.5rem; margin: 0 auto 0.4rem; border-radius: 50%; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); font-family: var(--font-display); font-weight: 700; line-height: 1.1; }
+.node span { font-weight: 300; font-size: 1.5rem; }
+@media (max-width: 640px) { .hero .copy { padding: 1.25rem; } }
 </style>
 </head>
 <body>
@@ -87,8 +108,8 @@ table.mini tbody th { font-family: var(--font-body); font-size: 0.875rem; }
   <a class="brand" href="#top">HEALTHERO</a>
   <nav aria-label="Main">
     <ul>
-      <li><a href="#drill">Audit drill</a></li>
-      <li><a href="#practice">Retainers</a></li>
+      <li><a href="#blueprint">Blueprint</a></li>
+      <li><a href="#practice">Services</a></li>
       <li><a href="#method">Method</a></li>
       <li><a href="#work">Collaborations</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -96,107 +117,112 @@ table.mini tbody th { font-family: var(--font-body); font-size: 0.875rem; }
     </ul>
   </nav>
 </header>
-<hr class="rule">
-
 <main id="main">
+  <div class="stage">
   <div id="top" class="hero wrap">
     <div class="copy">
-      <p class="kicker">Accountable AI in care</p>
-      <h1>Who decides when AI is in the room?</h1>
-      <p class="lead">Healthero writes the answer down with the nurses who hold the license, decision by decision, and keeps it current. <strong>We do the work with you.</strong></p>
+      <p class="kicker">Decision design agency</p>
+      <h1>Design the decisions before you ship the product.</h1>
+      <p class="lead">Healthero helps health software teams reach the market faster and stay answerable. We design who decides what, person or agent, so your product clears a buyer's review and runs without workarounds. <strong>We do the work with you.</strong></p>
       <div class="actions">
-        <a class="button large" href="#drill">Start with a 30-day audit drill</a>
-        <a class="button large outline" href="#samples">See what you get</a>
+        <a class="button large" href="#contact">Talk through your launch</a>
+        <a class="button large outline" href="#blueprint">See a decision blueprint</a>
       </div>
     </div>
     <div class="bars" aria-hidden="true">
       <span style="height: 38%"></span><span style="height: 56%"></span><span style="height: 74%"></span><span style="height: 88%"></span><span style="height: 100%"></span>
     </div>
   </div>
-  <hr class="rule">
+  </div>
 
-  <section id="drill" class="wrap">
-    <p class="kicker">Start here</p>
-    <h2>The 30-day audit drill</h2>
-    <p class="lead">One unit. One workflow where AI assists care. Thirty days. We map who decides what, test whether your team could explain it to a regulator, and hand back the gaps.</p>
+  <section id="why" class="wrap">
+    <p class="kicker">Why it speeds you up</p>
+    <h2>Safe and accountable is the fast route to market</h2>
     <div class="grid">
       <article class="card">
-        <p class="kicker">Week 1</p>
-        <h3>The decision map</h3>
-        <p>Every decision the workflow touches, who owns it, and what the AI may and may not do. Written with the nurses on the unit.</p>
+        <h3>Shorter reviews</h3>
+        <p>Privacy, security and clinical reviewers all ask the same thing in different words: who decides, and what does the software do on its own? You arrive with the answer on one page.</p>
       </article>
       <article class="card">
-        <p class="kicker">Weeks 2 and 3</p>
-        <h3>The drill</h3>
-        <p>We ask the questions an auditor would. Where an answer is missing or lives in one person's head, we mark it.</p>
+        <h3>Fewer stalled pilots</h3>
+        <p>Pilots stall when the people using the product never agreed to what it may do. We design that agreement with them before the pilot starts.</p>
       </article>
       <article class="card">
-        <p class="kicker">Week 4</p>
-        <h3>The report</h3>
-        <p>What holds, what doesn't, and what to fix first. Short enough to take to a board.</p>
+        <h3>Leaner operations</h3>
+        <p>Every decision has one owner and every exception has a place to go. Nothing waits in a queue nobody owns.</p>
       </article>
     </div>
-    <p class="fact">In one survey of 182 hospital leaders, 22% were highly confident they could give a regulator a complete explanation of their AI within 30 days. <a href="https://healthcarefinancenews.com/news/hospitals-are-underfunding-artificial-intelligence-governance-report-finds">Black Book Research, reported November 2025</a>.</p>
-    <p class="lead">A fixed fee, agreed before we start. <a href="mailto:info@healthero.io?subject=30-day%20audit%20drill">Ask about a drill: info@healthero.io</a></p>
+    <p class="fact">In a survey of about 650 US hospital leaders, 80% said AI vendor claims are hard to verify without a formal governance program. <a href="https://www.newswire.com/news/ai-governance-helps-hospitals-turn-stalled-pilots-into-fast-track-roi-22675682">Black Book Research</a>.</p>
   </section>
+
+  <div class="stage band">
+  <section id="blueprint" class="wrap">
+    <p class="kicker">What we make</p>
+    <h2>A decision blueprint</h2>
+    <p class="lead">One page that shows, step by step, who decides, what an agent may do, what it must never do, and what is written down. This one is made up: a discharge instructions assistant that a vendor sells to hospitals. No real product, unit or patient is described.</p>
+    <div class="scroll bpwrap" tabindex="0" role="region" aria-label="Decision blueprint, made-up example. Scroll sideways to read all four steps.">
+      <table class="bp">
+        <caption class="skip">Made-up decision blueprint for a discharge instructions assistant, in four steps</caption>
+        <thead><tr><th scope="col"><span class="skip">Lane</span></th><th scope="col">Step 1</th><th scope="col">Step 2</th><th scope="col">Step 3</th><th scope="col">Step 4</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><span class="lane gold">Patient and family</span></th><td><div class="bcard gold">Nothing visible yet</div></td><td><div class="bcard gold">Sees the nurse reading with them, not a screen</div></td><td><div class="bcard gold">Gets one page, in their language, with who to call</div></td><td><div class="bcard gold">Is asked one question: what was unclear?</div></td></tr>
+          <tr><th scope="row"><span class="lane sea">Nurse</span></th><td><div class="bcard sea">Opens a draft, never a blank page</div></td><td><div class="bcard sea">Reads every line. Changes what is wrong. Signs</div></td><td><div class="bcard sea">Teaches from the page at the bedside</div></td><td><div class="bcard sea">Sees which lines nurses changed most</div></td></tr>
+          <tr class="track"><th scope="row"><span>The journey</span></th><td><div class="node"><span>1</span>Draft</div><p>The assistant writes</p></td><td><div class="node"><span>2</span>Review</div><p>The nurse decides</p></td><td><div class="node"><span>3</span>Send home</div><p>The family receives</p></td><td><div class="node"><span>4</span>Learn</div><p>The unit reviews</p></td></tr>
+          <tr><th scope="row"><span class="lane cobalt">Who decides</span></th><td><div class="bcard cobalt">No decision yet</div></td><td><div class="bcard cobalt"><b>The discharging nurse.</b> Always</div></td><td><div class="bcard cobalt">The nurse, with the family</div></td><td><div class="bcard cobalt">The nurse manager, monthly</div></td></tr>
+          <tr><th scope="row"><span class="lane agent">The agent may</span></th><td><div class="bcard agent">Draft in plain language. Translate. Flag any medication line it is unsure of<span class="rung">Draft</span></div></td><td><div class="bcard agent">Show what changed since the last version<span class="rung">Suggest</span></div></td><td><div class="bcard agent">Send only what the nurse signed<span class="rung">Rule, not an agent</span></div></td><td><div class="bcard agent">Group the corrections by cause<span class="rung">Suggest</span></div></td></tr>
+          <tr><th scope="row"><span class="lane vermilion">Never</span></th><td><div class="bcard vermilion">Invent a dose or an instruction</div></td><td><div class="bcard vermilion">Mark its own draft as reviewed</div></td><td><div class="bcard vermilion">Send anything unsigned</div></td><td><div class="bcard vermilion">Rank nurses by how often they edit</div></td></tr>
+          <tr><th scope="row"><span class="lane plain">Logged</span></th><td><div class="bcard plain">Which sources the draft used</div></td><td><div class="bcard plain">What the nurse changed, and why, in one line</div></td><td><div class="bcard plain">Who signed, and when</div></td><td><div class="bcard plain">Corrections per month, by unit</div></td></tr>
+          <tr><th scope="row"><span class="lane out">Stop and measure</span></th><td><div class="bcard out">Stops if a source is missing</div></td><td><div class="bcard out">Three corrected medication lines in a month pauses drafting</div></td><td><div class="bcard out">Share of families who could say back the plan</div></td><td><div class="bcard out">Reviewed monthly, with the unit</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="also"><strong>How to read it.</strong> The top lanes are what people see. The middle row is the journey. Below it is the decision design: the owner, the agent's limits, the record and the stop rule. A buyer's reviewer reads down one column and has their answer.</p>
+  </section>
+  </div>
 
   <section id="practice" class="wrap">
-    <p class="kicker">Then, month by month</p>
-    <h2>Two retainers, for work that has to keep holding</h2>
+    <p class="kicker">The practice</p>
+    <h2>Three ways to start</h2>
     <div class="grid">
       <article class="card">
-        <p class="kicker">For a unit or a product team putting something into use</p>
-        <h3>Guide</h3>
-        <p>A living blueprint of the work: who does what, which decisions are whose, and what the solution must never do. Updated every month with the people who do the work.</p>
-        <p class="leave"><strong>Each month:</strong> a current blueprint, and a build checked against it.</p>
+        <p class="kicker">For a product team before or between releases</p>
+        <h3>Sense and Shape engagement</h3>
+        <p>Field research with the people who will use the product, then scenarios, a prototype and a test. Aurora does this with one team in an afternoon. We do it with your team and your customers over weeks.</p>
+        <p class="leave"><strong>You leave with:</strong> what people need, a tested prototype, and a decision you can defend.</p>
       </article>
       <article class="card">
-        <p class="kicker">For a health system or vendor with AI in clinical workflows</p>
-        <h3>Govern</h3>
-        <p>Decision protocols for up to three workflows: what stays human, what agents may propose, and what is logged when someone overrides. They run in the background, alongside your people.</p>
-        <p class="leave"><strong>Each month:</strong> an override review with the unit. Each quarter: an audit drill.</p>
+        <p class="kicker">For teams shipping agents into care</p>
+        <h3>AOS, an operating model for agents</h3>
+        <p>Which decisions stay with the clinician, what agents may propose, what is logged when someone overrides them, and how value is shown to the people who pay.</p>
+        <p class="leave"><strong>You leave with:</strong> a decision blueprint for your product, and a team that can keep it current without us.</p>
       </article>
       <article class="card">
-        <p class="kicker">How it is sold</p>
-        <h3>Terms a unit can sign</h3>
-        <p>A monthly fee. Three months to start, then cancel with 30 days' notice. Each retainer names what the month produces. No hourly billing.</p>
-        <p class="leave"><strong>Prices:</strong> on request, after a first conversation.</p>
+        <p class="kicker">For product teams, schools and societies</p>
+        <h3>Workshops and hackathons</h3>
+        <p>Facilitated sessions where teams work a real health challenge with AI as a thinking partner, not an answer machine.</p>
+        <p class="leave"><strong>You leave with:</strong> teams who have framed a problem, imagined its future and pitched a first step.</p>
       </article>
     </div>
-    <p class="also"><strong>Also:</strong> workshops and hackathons for schools, societies and programs, where nurse-led teams work a real health challenge with AI as a thinking partner.</p>
   </section>
 
-  <section id="samples" class="wrap">
-    <p class="kicker">What you get</p>
-    <h2>A decision protocol and a blueprint, on one page each</h2>
-    <p class="lead">Both examples are made up. No real unit, patient or product is described.</p>
-    <div class="grid two">
-      <article class="card sample">
-        <p class="kicker">Made-up example · Decision protocol</p>
-        <h3>Sending AI-drafted discharge instructions home</h3>
-        <dl>
-          <dt>Who decides</dt><dd>The discharging nurse. Always.</dd>
-          <dt>The agent may</dt><dd>Draft the instructions in plain language, translate them, and flag any medication line it is unsure of.</dd>
-          <dt>The agent may not</dt><dd>Change a dose or an instruction, or send anything the nurse has not signed.</dd>
-          <dt>Logged on override</dt><dd>What the nurse changed, and why, in one line.</dd>
-          <dt>Stop condition</dt><dd>Three corrected medication lines in a month pauses drafting on that unit until the review.</dd>
-          <dt>Reviewed</dt><dd>Monthly, with the unit.</dd>
-        </dl>
+  <section id="retainers" class="wrap">
+    <p class="kicker">Then, month by month</p>
+    <h2>Two retainers, for products already in use</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Guide</h3>
+        <p>We keep your decision blueprint current as the product, the rules and your customers change. Every release is checked against it.</p>
+        <p class="leave"><strong>Each month:</strong> a current blueprint, and a note on what the last release changed.</p>
       </article>
-      <article class="card sample">
-        <p class="kicker">Made-up example · Living blueprint, three rows</p>
-        <h3>Discharge on a medical unit</h3>
-        <div class="scroll tight">
-          <table class="mini">
-            <thead><tr><th scope="col">Job</th><th scope="col">Decision owner</th><th scope="col">Agent's part</th><th scope="col">Never</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">Teach the family</th><td>Discharging nurse</td><td>Drafts a one-page summary</td><td>Teaches in place of a person</td></tr>
-              <tr><th scope="row">Confirm medicines</th><td>Nurse, with pharmacy</td><td>Lists changes since admission</td><td>Resolves a mismatch</td></tr>
-              <tr><th scope="row">Arrange follow-up</th><td>Case manager</td><td>Proposes open appointment times</td><td>Books without consent</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="leave"><strong>Kept current:</strong> when a rule, a role or a tool changes, the row changes, and a named person approves it.</p>
+      <article class="card">
+        <h3>Govern</h3>
+        <p>Live decision protocols that run in the background with your customers' people: what stays human, what agents may propose, what is logged on override.</p>
+        <p class="leave"><strong>Each month:</strong> an override review you can share with customers.</p>
+      </article>
+      <article class="card">
+        <h3>Terms</h3>
+        <p>A monthly fee. Three months to start, then cancel with 30 days' notice. Each retainer names what the month produces. No hourly billing.</p>
+        <p class="leave"><strong>Prices:</strong> on request, after a first conversation.</p>
       </article>
     </div>
   </section>
@@ -309,7 +335,7 @@ table.mini tbody th { font-family: var(--font-body); font-size: 0.875rem; }
   <section id="contact" class="wrap">
     <p class="kicker">Contact</p>
     <h2>Rachael Acker</h2>
-    <p class="lead contact">Founder, Healthero. For engagements, workshops and collaborations, write to <a href="mailto:info@healthero.io">info@healthero.io</a>.</p>
+    <p class="lead contact">Founder, Healthero. For a first conversation about your product, write to <a href="mailto:info@healthero.io">info@healthero.io</a>.</p>
   </section>
 </main>
 
@@ -317,7 +343,7 @@ table.mini tbody th { font-family: var(--font-body); font-size: 0.875rem; }
   <div class="wrap">
     <p class="line">Agents propose. <strong>A named person decides.</strong></p>
     <div class="trail">
-      <span>Audit drill / Retainers / Method / Collaborations / Contact</span>
+      <span>Blueprint / Services / Method / Collaborations / Contact</span>
       <span>© 2026 Healthero LLC. All rights reserved</span>
     </div>
   </div>
