@@ -1,0 +1,67 @@
+/* Healthero design system: tokens.
+   One file feeds both builds: the practice site (index.html) and the Aurora app (app/).
+   Change a value here and both change. The practice site picks it up on reload; the app on its next build.
+
+   Colors are written as HSL parts (hue saturation lightness) so they can be reused with transparency.
+   theme-practice is the consultancy. theme-aurora is the product. */
+
+:root {
+  --font-display: "Outfit", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+  --space-section: clamp(4rem, 8vw, 6rem);
+  --width-page: 1180px;
+  --width-text: 65ch;
+}
+
+.theme-aurora {
+  color-scheme: dark;
+  --background: 345 6% 13%;
+  --foreground: 0 0% 100%;
+  --card: 244 48% 26%;
+  --card-foreground: 0 0% 100%;
+  --popover: 244 48% 22%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 173 83% 50%;
+  --primary-foreground: 345 6% 13%;
+  --secondary: 244 40% 34%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 244 40% 20%;
+  --muted-foreground: 250 20% 86%;
+  --accent: 241 100% 83%;
+  --accent-foreground: 345 6% 13%;
+  --destructive: 42 100% 70%;
+  --destructive-foreground: 345 6% 13%;
+  --border: 0 0% 100% / 0.32;
+  --input: 0 0% 100% / 0.5;
+  --ring: 173 83% 50%;
+  --field: 0 0% 100%;
+  --field-foreground: 345 6% 13%;
+  --radius: 0rem;
+  --band: linear-gradient(90deg, #16e7ce 0%, #7e7cfe 55%, #ce28c1 100%);
+}
+.theme-practice {
+  color-scheme: light;
+  --background: 43 33% 96%;
+  --foreground: 0 0% 0%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 0%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 0%;
+  --primary: 0 0% 0%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 39 17% 88%;
+  --secondary-foreground: 0 0% 0%;
+  --muted: 39 17% 90%;
+  --muted-foreground: 0 0% 27%;
+  --accent: 39 17% 57%;
+  --accent-foreground: 0 0% 0%;
+  --destructive: 0 70% 38%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 0 0% 0% / 0.3;
+  --input: 0 0% 0% / 0.55;
+  --ring: 0 0% 0%;
+  --field: 0 0% 100%;
+  --field-foreground: 0 0% 0%;
+  --radius: 0rem;
+  --band: linear-gradient(90deg, #16e7ce 0%, #ffe14d 100%);
+}

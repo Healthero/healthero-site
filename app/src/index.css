@@ -1,0 +1,13 @@
+@import "../../design-system/tokens.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tokens live in design-system/tokens.css, shared with the practice site. */
+@layer base {
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
+  body { @apply bg-background text-foreground font-sans text-base leading-relaxed antialiased; margin: 0; }
+  h1, h2, h3 { @apply font-display; text-wrap: balance; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+}

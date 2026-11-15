@@ -1,13 +1,13 @@
 import animate from "tailwindcss-animate";
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./*.html", "./src/**/*.{ts,tsx}"],
+  content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     container: { center: true, padding: "1rem", screens: { "2xl": "1180px" } },
     extend: {
       fontFamily: {
-        display: ["Outfit", "Helvetica Neue", "Arial", "sans-serif"],
-        sans: ['"Source Sans 3"', "Helvetica Neue", "Arial", "sans-serif"],
+        display: ["var(--font-display)"],
+        sans: ["var(--font-body)"],
       },
       colors: {
         border: "hsl(var(--border))",

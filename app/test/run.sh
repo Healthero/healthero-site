@@ -4,7 +4,7 @@ set -e
 cd "$(dirname "$0")/.."
 VITE_ENV=dev npx vite build --outDir dist-dev >/dev/null 2>&1
 cp test/harness.html dist-dev/harness.html
-sed 's|<div id="root"></div>|<div id="root"></div><script>window.claude = parent.makeClaude(new URLSearchParams(location.search).get("u"));</script>|' dist-dev/app.html > dist-dev/harness-app.html
+sed 's|<div id="root"></div>|<div id="root"></div><script>window.claude = parent.makeClaude(new URLSearchParams(location.search).get("u"));</script>|' dist-dev/index.html > dist-dev/harness-app.html
 npx vite preview --outDir dist-dev --port 4174 >/dev/null 2>&1 &
 PID=$!
 sleep 3
