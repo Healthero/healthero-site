@@ -212,11 +212,35 @@ footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-betw
   <section id="map" class="wrap">
     <p class="kicker">What we make</p>
     <h2>A decision map of your practice</h2>
-    <p class="lead">An agentic decision map. Each column is the intent of one step in the journey. Lanes run from empathy through services and information flows to policies and protocols, with agent and human-in-the-loop interactions and real-time monitoring.</p>
+    <p class="lead">One page for the whole practice. Each column is a step, named by what the patient needs from it. Read down a column to see what people feel, how it works today, what software may do, what a person decides, the rules, and the number to watch.</p>
     <p class="lead small">This one is made up: a one or two clinician practice, from a new patient to a paid claim. The readings are examples, not real data.</p>
+      <figure class="legend">
+        <svg viewBox="0 0 220 260" role="img" aria-labelledby="ib-t" class="berg">
+          <title id="ib-t">An iceberg in three levels: what people feel above the water, how the work runs today just below, and the rules that don’t bend at the bottom</title>
+          <path d="M110 12 L150 70 L176 96 L44 96 L72 60 Z" class="b1"/>
+          <path d="M40 104 L180 104 L196 150 L24 150 Z" class="b2"/>
+          <path d="M26 158 L194 158 L160 222 L110 250 L62 220 Z" class="b3"/>
+          <path d="M0 100 Q28 92 55 100 T110 100 T165 100 T220 100" class="water"/>
+        </svg>
+        <figcaption>
+          <p><span class="key gold"></span><strong>Above the water:</strong> what the patient and the clinician feel, and what it does between them.</p>
+          <p><span class="key sea"></span><strong>Just below:</strong> how the work runs today, and where the information goes.</p>
+          <p><span class="key stone"></span><strong>At the bottom:</strong> the rules that can’t be changed and have to be followed.</p>
+          <p><span class="key cobalt"></span><strong>Through the middle:</strong> what software may do, and what a person decides.</p>
+        </figcaption>
+      </figure>
 
     <div class="scroll bpwrap has-cards" tabindex="0" role="region" aria-label="Decision map, made-up example. Scroll sideways to read all six steps." id="map-table"></div>
     <div id="map-cards" class="mapcards"></div>
+    <div class="grid two sketchrow">
+      <figure class="sketch"><img src="images/sketch-augment-expertise.webp" width="1400" height="788" loading="lazy" alt="Hand-drawn sketch by Rachael Acker. On the left, task navigation: a person works through options, tries, gets stuck, asks for help and finishes the job. On the right, augmented expertise: a loop of a trusted advisor, assessing needs, weighing trade-offs, making a decision with confidence, monitoring, and adjusting until the outcome is reached."><figcaption>Most software helps you get through a task. A decision map designs for the loop on the right: judgment, with support.</figcaption></figure>
+      <div class="prose">
+        <h3>Why a decision map and not a task list</h3>
+        <p>A task list says what to do. A decision map says who decides, what they see when they decide, and how you find out if it was right.</p>
+        <p>That is what lets you bring in software with a clear conscience. It works inside lines you drew, and a named person stays answerable.</p>
+        <p>The numbers on this map are examples. On yours they come from your own practice, and they update as the work does.</p>
+      </div>
+    </div>
   </section>
   </div>
 
@@ -267,7 +291,7 @@ footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-betw
 
   <section id="method" class="wrap">
     <p class="kicker">How we work</p>
-    <h2>Five steps</h2>
+    <h2>Five steps, and what we design for</h2>
     <ol class="steps">
       <li><span class="pill">01</span><h3>Sense</h3><p>What did we see, who does it touch, and what does it cost them?</p></li>
       <li><span class="pill">02</span><h3>Shape</h3><p>What needs to change, and what would we try first?</p></li>
@@ -275,6 +299,10 @@ footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-betw
       <li><span class="pill ahead">04</span><h3>Guide</h3><p>Keep the map matched to how the work is really done.</p></li>
       <li><span class="pill ahead">05</span><h3>Govern</h3><p>Watch the numbers, and decide what software may do next.</p></li>
     </ol>
+    <div class="grid two sketchrow">
+      <figure class="sketch"><img src="images/sketch-change-journey.webp" width="1400" height="788" loading="lazy" alt="Hand-drawn sketch by Rachael Acker of how change takes hold. A person says “but I’ve always done it this way.” A triggering event leads to fear of loss, then a decision to change, a guide who reduces the fear, a first try at something new, showing a colleague, and finally value measured and shared."><figcaption>Change sticks when the fear of losing something is met first. That is what Guide is for.</figcaption></figure>
+      <figure class="sketch"><img src="images/sketch-humanity-centered.webp" width="1400" height="788" loading="lazy" alt="Hand-drawn sketch by Rachael Acker. On the left, three overlapping circles labelled desirable, feasible and viable, with user-centered in the middle. On the right, three larger circles labelled beneficial, responsible and sustainable, with humanity-centered in the middle. An arrow runs from engagement to wellbeing, from the individual to the community to society."><figcaption>We design past “will people use it” to “is it good for them, and can it last.”</figcaption></figure>
+    </div>
   </section>
 
   <section id="work" class="wrap">
@@ -309,11 +337,11 @@ footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-betw
 <script type="application/json" id="map-data">
 {
  "labels": {
-  "tip": "Empathy",
-  "mid": "Services and information flows",
-  "ag": "Agent and HITL",
-  "bot": "Policies and protocols",
-  "ms": "Real-time monitoring"
+  "tip": "What people feel",
+  "mid": "How it works today",
+  "ag": "What software may do, and what a person decides",
+  "bot": "Rules that don’t bend",
+  "ms": "How we’ll know it’s working"
  },
  "steps": [
   {
