@@ -110,14 +110,29 @@ table.bp tbody th { position: sticky; left: 0; z-index: 2; background: hsl(var(-
 .state.s-ontrack { background: var(--tint-sea); } .state.s-watch { background: var(--tint-gold); } .state.s-offtrack { background: var(--tint-vermilion); }
 .goal, .eg { font-size: 0.8125rem; color: hsl(var(--muted-foreground)); }
 /* One step at a time, for small screens. */
-.mapcards { display: none; margin-top: 2rem; }
+.mapcards { margin-top: 2rem; }
 .steptabs { display: flex; gap: 0.4rem; overflow-x: auto; padding-bottom: 0.5rem; }
 .steptabs button { flex: none; min-height: 2.75rem; padding: 0.4rem 0.9rem; font: inherit; font-weight: 600; background: hsl(var(--card)); color: hsl(var(--foreground)); border: 1px solid hsl(var(--foreground)); border-radius: 999px; cursor: pointer; }
 .steptabs button[aria-selected="true"] { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); border-color: hsl(var(--primary)); }
 .steppanel { display: flex; flex-direction: column; gap: 0.5rem; padding: 1rem; background: hsl(var(--card)); border: 1px solid hsl(var(--foreground)); }
-.steppanel .lane { margin-top: 0.5rem; }
 .steppanel .bcard { height: auto; }
-@media (max-width: 820px) { .mapcards { display: block; } .has-cards { display: none; } }
+.mapcards { display: block; }
+.lanes { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 0.75rem; }
+.lanes > div { display: flex; flex-direction: column; }
+.lanes .bcard { flex: 1; }
+details.wide { margin-top: 1.25rem; }
+details.wide summary { display: inline-flex; align-items: center; min-height: 2.75rem; cursor: pointer; font-weight: 600; text-decoration: underline; }
+@media (max-width: 820px) { details.wide { display: none; } }
+.terms { font-size: 0.9375rem; font-weight: 600; }
+.stats { display: grid; gap: 1.5rem 2rem; margin: 2rem 0 0; padding: 0; list-style: none; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.stats li { padding-top: 1rem; border-top: 1px solid hsl(var(--foreground)); display: flex; flex-direction: column; gap: 0.5rem; }
+.stats .num { font-size: 2.75rem; }
+ul.ticks { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.45rem; }
+.path .button { align-self: flex-start; }
+dl.qa { display: grid; gap: 0; margin: 2rem 0 0; max-width: 820px; }
+dl.qa > div { padding-block: 1rem; border-top: 1px solid hsl(var(--border)); }
+dl.qa dt { font-family: var(--font-display); font-weight: 700; font-size: 1.125rem; }
+dl.qa dd { margin: 0.35rem 0 0; }
 footer.site { margin-top: var(--space-section); background: var(--band); color: var(--band-foreground); }
 footer.site .wrap { display: flex; flex-direction: column; gap: 2.5rem; padding-block: 3.5rem 2rem; }
 footer.site .line { max-width: 28ch; font-family: var(--font-display); font-weight: 300; font-size: clamp(1.75rem, 4vw, 2.25rem); line-height: 1.25; }
@@ -135,8 +150,8 @@ footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-betw
   <a class="brand" href="#top">HEALTHERO</a>
   <nav aria-label="Main">
     <ul>
-      <li><a href="#start">Start</a></li><li><a href="#map">Decision map</a></li><li><a href="#programs">Programs</a></li><li><a href="#practice">Work with us</a></li><li><a href="#contact">Contact</a></li>
-      <li><a class="button" href="https://healthero.ai">Aurora at healthero.ai</a></li>
+      <li><a href="#start">Who it’s for</a></li><li><a href="#map">The map</a></li><li><a href="#how">How it works</a></li><li><a href="#questions">Questions</a></li>
+      <li><a class="button" href="#contact">Talk to us</a></li>
     </ul>
   </nav>
 </header>
@@ -145,13 +160,14 @@ footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-betw
   <div class="stage">
   <div id="top" class="hero wrap">
     <div class="copy">
-      <p class="kicker">Decision design for nurse-led care</p>
+      <p class="kicker">For nurse innovators and small practices</p>
       <h1>Run your own practice. Keep your own margin.</h1>
-      <p class="lead">Healthero helps nurse innovators and small practices design how the work runs: who decides, what software may do, and how you’ll know it’s working. So you choose what to hand off, and what it should cost. <strong>We do the work with you.</strong></p>
+      <p class="lead">Your whole practice on one page: who decides, what software may do, and six numbers that tell you it’s working.</p>
       <div class="actions">
-        <a class="button large" href="#start">Find where you are</a>
-        <a class="button large outline" href="#map">See a decision map</a>
+        <a class="button large" href="#start">Find your starting point</a>
+        <a class="button large outline" href="#map">See the map</a>
       </div>
+      <p class="terms">Flat fee. No percentage. We don’t touch your claims.</p>
     </div>
     <div class="bars" aria-hidden="true">
       <span style="height: 38%"></span><span style="height: 56%"></span><span style="height: 74%"></span><span style="height: 88%"></span><span style="height: 100%"></span>
@@ -159,170 +175,123 @@ footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-betw
   </div>
   </div>
 
+  <section class="wrap" aria-labelledby="why-h">
+    <p class="kicker">Why now</p>
+    <h2 id="why-h">Three numbers nobody mentions at the pitch</h2>
+    <ul class="stats">
+      <li><span class="num">4–10%</span><p>of what you collect goes to a typical billing service. <a href="https://neolytix.com/articles/what-is-the-going-rate-for-medical-billing-services/">Neolytix</a></p></li>
+      <li><span class="num">90–120</span><p>days is a common wait to join an insurance plan before you can bill it. <a href="https://learnsignal.com/blog/provider-enrollment-vs-credentialing/">Learnsignal</a></p></li>
+      <li><span class="num">2 hrs</span><p>of desk work for each hour with patients, in one study of physicians. <a href="https://www.healthcareitnews.com/news/all-ehr-documentation-causing-physician-burnout">Healthcare IT News</a></p></li>
+    </ul>
+  </section>
+
   <section id="start" class="wrap">
-    <p class="kicker">Start where you are</p>
-    <h2>Two starting points, one map</h2>
-    <div class="grid two">
+    <p class="kicker">Who it’s for</p>
+    <h2>Pick your starting point</h2>
+    <div class="grid">
       <article class="card path">
         <p class="pill">0 to 1</p>
         <h3>You won the pitch. Now it has to run.</h3>
-        <p>You have an idea people believed in, and no operations yet. The first decisions set your costs for years.</p>
-        <ol>
-          <li><strong>Decide how you get paid.</strong> Self-pay, insurance, or both. Each changes every step after it.</li>
-          <li><strong>Start the slow things first.</strong> Joining an insurance plan commonly takes 90 to 120 days, and visits before then usually can’t be billed to it.</li>
-          <li><strong>Map your first patient.</strong> From first contact to first payment, one page.</li>
-        </ol>
-        <p class="leave"><strong>You leave with:</strong> a decision map for your first year, and the three things to do this month.</p>
+        <ul class="ticks">
+          <li>Choose how you get paid: self-pay, insurance, or both</li>
+          <li>Start the slow paperwork first, so month four isn’t a surprise</li>
+          <li>See your first patient, from hello to paid, on one page</li>
+        </ul>
+        <p class="leave"><strong>You get:</strong> a first-year map and three things to do this month.</p>
+        <a class="button" href="mailto:info@healthero.io?subject=I%20won%20a%20pitch">I’m at zero</a>
       </article>
       <article class="card path">
         <p class="pill">1 to steady</p>
-        <h3>You’re seeing patients. The admin is eating the practice.</h3>
-        <p>Notes at night, claims that bounce, and a share of every payment going to someone else to chase the rest.</p>
-        <ol>
-          <li><strong>Find where minutes and money leak.</strong> Step by step, with your own numbers.</li>
-          <li><strong>Decide what stays in your hands.</strong> What software may do, what a person must decide, what is worth paying for.</li>
-          <li><strong>Watch six numbers.</strong> One per step, so you know early when something slips.</li>
-        </ol>
-        <p class="leave"><strong>You leave with:</strong> a decision map of your practice as it runs today, and the order to fix it in.</p>
-      </article>
-    </div>
-  </section>
-
-  <section id="margin" class="wrap">
-    <p class="kicker">The percentage</p>
-    <h2>Know what each step costs before you sign it away</h2>
-    <div class="grid two">
-      <div class="prose">
-        <p>Most small practices hand billing to a service that keeps a share of what it collects. Published rates run from 4 to 10 percent. On $400,000 a year, that is $16,000 to $40,000.</p>
-        <p>A billing service can be the right choice. The trouble is choosing it blind. The fee tells you what the service costs. It doesn’t tell you what it collects, which claims it lets age, or which of your decisions it is quietly making.</p>
-        <p class="fact">“The percentage-of-collections model has a built-in misalignment.” <a href="https://www.medicaleconomics.com/view/what-independent-practices-get-wrong-when-they-hire-a-billing-company">Medical Economics, June 2026</a>. Rates: <a href="https://neolytix.com/articles/what-is-the-going-rate-for-medical-billing-services/">Neolytix pricing guide, 2026</a>.</p>
-      </div>
-      <article class="card">
-        <h3>What we do, and what we don’t</h3>
-        <ul class="plain">
-          <li><strong>We do</strong> map your practice with you, design who decides what, and help you pick and set up the tools.</li>
-          <li><strong>We do</strong> charge a flat fee you know in advance.</li>
-          <li><strong>We don’t</strong> take a percentage of what you earn.</li>
-          <li><strong>We don’t</strong> submit your claims or act as your billing service.</li>
-          <li><strong>We don’t</strong> give legal or coding advice. The map shows where you need it.</li>
+        <h3>You’re seeing patients. The admin is eating your evenings.</h3>
+        <ul class="ticks">
+          <li>Find where each bounced claim began</li>
+          <li>Judge your billing service on facts, then keep it or leave it</li>
+          <li>Know what software may do without you</li>
         </ul>
+        <p class="leave"><strong>You get:</strong> a map of your practice today and the order to fix it in.</p>
+        <a class="button" href="mailto:info@healthero.io?subject=I%20run%20a%20practice">I’m at one</a>
+      </article>
+      <article class="card path" id="programs">
+        <p class="pill ahead">Programs</p>
+        <h3>Your winners leave with a prize. Send them home with a plan.</h3>
+        <ul class="ticks">
+          <li>One session for your cohort</li>
+          <li>Every team maps its first year</li>
+          <li>You pay once. Winners pay nothing</li>
+        </ul>
+        <p class="leave"><strong>They get:</strong> something to run on Monday.</p>
+        <a class="button" href="mailto:info@healthero.io?subject=Decision%20maps%20for%20our%20cohort">I run a program</a>
       </article>
     </div>
   </section>
 
   <div class="stage band">
   <section id="map" class="wrap">
-    <p class="kicker">What we make</p>
-    <h2>A decision map of your practice</h2>
-    <p class="lead">One page for the whole practice. Each column is a step, named by what the patient needs from it. Read down a column to see what people feel, how it works today, what software may do, what a person decides, the rules, and the number to watch.</p>
-    <p class="lead small">This one is made up: a one or two clinician practice, from a new patient to a paid claim. The readings are examples, not real data.</p>
-      <figure class="legend">
-        <svg viewBox="0 0 220 260" role="img" aria-labelledby="ib-t" class="berg">
-          <title id="ib-t">An iceberg in three levels: what people feel above the water, how the work runs today just below, and the rules that don’t bend at the bottom</title>
-          <path d="M110 12 L150 70 L176 96 L44 96 L72 60 Z" class="b1"/>
-          <path d="M40 104 L180 104 L196 150 L24 150 Z" class="b2"/>
-          <path d="M26 158 L194 158 L160 222 L110 250 L62 220 Z" class="b3"/>
-          <path d="M0 100 Q28 92 55 100 T110 100 T165 100 T220 100" class="water"/>
-        </svg>
-        <figcaption>
-          <p><span class="key gold"></span><strong>Above the water:</strong> what the patient and the clinician feel, and what it does between them.</p>
-          <p><span class="key sea"></span><strong>Just below:</strong> how the work runs today, and where the information goes.</p>
-          <p><span class="key stone"></span><strong>At the bottom:</strong> the rules that can’t be changed and have to be followed.</p>
-          <p><span class="key cobalt"></span><strong>Through the middle:</strong> what software may do, and what a person decides.</p>
-        </figcaption>
-      </figure>
-
-    <p class="hint has-cards">Six steps. Scroll sideways to read them all.</p>
-    <div class="scroll bpwrap has-cards" tabindex="0" role="region" aria-label="Decision map, made-up example. Scroll sideways to read all six steps." id="map-table"></div>
+    <p class="kicker">The product</p>
+    <h2>The decision map</h2>
+    <p class="lead">Six steps, from a new patient to a paid claim. Each step answers five questions. Tap through it.</p>
+    <p class="lead small"><strong>This is a made-up practice.</strong> The readings are examples. Yours come from your own numbers.</p>
     <div id="map-cards" class="mapcards"></div>
+    <details class="wide">
+      <summary>See all six steps side by side</summary>
+      <div class="scroll bpwrap" tabindex="0" role="region" aria-label="Decision map, made-up example. Scroll sideways to read all six steps." id="map-table"></div>
+    </details>
     <div class="grid two sketchrow">
-      <figure class="sketch"><img src="images/sketch-augment-expertise.webp" width="1400" height="788" loading="lazy" alt="Hand-drawn sketch by Rachael Acker. On the left, task navigation: a person works through options, tries, gets stuck, asks for help and finishes the job. On the right, augmented expertise: a loop of a trusted advisor, assessing needs, weighing trade-offs, making a decision with confidence, monitoring, and adjusting until the outcome is reached."><figcaption>Most software helps you get through a task. A decision map designs for the loop on the right: judgment, with support.</figcaption></figure>
-      <div class="prose">
-        <h3>Why a decision map and not a task list</h3>
-        <p>A task list says what to do. A decision map says who decides, what they see when they decide, and how you find out if it was right.</p>
-        <p>That is what lets you bring in software with a clear conscience. It works inside lines you drew, and a named person stays answerable.</p>
-        <p>The numbers on this map are examples. On yours they come from your own practice, and they update as the work does.</p>
-      </div>
+      <figure class="sketch"><img src="images/sketch-augment-expertise.webp" width="1400" height="788" loading="lazy" alt="Hand-drawn sketch by Rachael Acker. On the left, task navigation: a person works through options, tries, gets stuck, asks for help and finishes the job. On the right, augmented expertise: a loop of a trusted advisor, assessing needs, weighing trade-offs, making a decision with confidence, monitoring, and adjusting until the outcome is reached."><figcaption><strong>A task list says what to do. A decision map says who decides,</strong> what they see when they decide, and how you’ll know it was right.</figcaption></figure>
     </div>
   </section>
   </div>
 
-  <section id="programs" class="wrap">
-    <p class="kicker">For programs</p>
-    <h2>Your winners leave with a prize. Give them a way to run it.</h2>
-    <p class="lead">Societies, hackathons and accelerators get nurse-led ideas to a pitch. The year after the pitch is where most of them stall, on operations nobody taught. We run a decision-map session for your cohort, and each team leaves with the first year on one page.</p>
-    <p class="lead"><a href="mailto:info@healthero.io?subject=Decision%20maps%20for%20our%20cohort">Ask about a cohort session: info@healthero.io</a></p>
-  </section>
-
-  <section id="practice" class="wrap">
-    <p class="kicker">Ways to work together</p>
-    <h2>Start small. Keep it current.</h2>
-    <div class="grid">
-      <article class="card">
-        <p class="kicker">One practice, a few sessions</p>
-        <h3>Your decision map</h3>
-        <p>We map your practice with you, step by step, using your own numbers where you have them.</p>
-        <p class="leave"><strong>You leave with:</strong> the map, six numbers to watch, and the order to act in.</p>
-      </article>
-      <article class="card">
-        <p class="kicker">A new service or product</p>
-        <h3>Sense and Shape engagement</h3>
-        <p>Field research with the people you serve, then scenarios, a prototype and a test.</p>
-        <p class="leave"><strong>You leave with:</strong> what people need, a tested prototype, and a decision you can defend.</p>
-      </article>
-      <article class="card">
-        <p class="kicker">Cohorts, schools and societies</p>
-        <h3>Workshops and hackathons</h3>
-        <p>Facilitated sessions where teams work a real health challenge with AI as a thinking partner, not an answer machine.</p>
-        <p class="leave"><strong>You leave with:</strong> teams who have framed a problem and mapped a first step.</p>
-      </article>
-    </div>
-    <div class="grid two" style="margin-top:1.25rem">
-      <article class="card">
-        <p class="kicker">Month by month</p>
-        <h3>Guide</h3>
-        <p>We keep your map current as your practice, your tools and the rules change.</p>
-      </article>
-      <article class="card">
-        <p class="kicker">Month by month</p>
-        <h3>Govern</h3>
-        <p>We review the numbers and the overrides with you, and adjust what software is allowed to do.</p>
-      </article>
-    </div>
-    <p class="also">A flat fee, agreed before we start. Prices on request while we work with our first practices.</p>
-  </section>
-
-  <section id="method" class="wrap">
-    <p class="kicker">How we work</p>
-    <h2>Five steps, and what we design for</h2>
+  <section id="how" class="wrap">
+    <p class="kicker">How it works</p>
+    <h2>Three steps. Then it’s yours.</h2>
     <ol class="steps">
-      <li><span class="pill">01</span><h3>Sense</h3><p>What did we see, who does it touch, and what does it cost them?</p></li>
-      <li><span class="pill">02</span><h3>Shape</h3><p>What needs to change, and what would we try first?</p></li>
-      <li><span class="pill">03</span><h3>Build</h3><p>The smallest version real people can try.</p></li>
-      <li><span class="pill ahead">04</span><h3>Guide</h3><p>Keep the map matched to how the work is really done.</p></li>
-      <li><span class="pill ahead">05</span><h3>Govern</h3><p>Watch the numbers, and decide what software may do next.</p></li>
+      <li><span class="pill">01</span><h3>Tell us where you are</h3><p>Zero or one. We’ll say plainly whether a map would help.</p></li>
+      <li><span class="pill">02</span><h3>We map it with you</h3><p>A few sessions, step by step, with your own numbers where you have them.</p></li>
+      <li><span class="pill">03</span><h3>You watch six numbers</h3><p>One per step. You know early when something slips, and what to fix first.</p></li>
     </ol>
+    <p class="also"><strong>Want it kept current?</strong> We can review the map and the numbers with you each month as your practice, tools and rules change.</p>
     <div class="grid two sketchrow">
-      <figure class="sketch"><img src="images/sketch-change-journey.webp" width="1400" height="788" loading="lazy" alt="Hand-drawn sketch by Rachael Acker of how change takes hold. A person says “but I’ve always done it this way.” A triggering event leads to fear of loss, then a decision to change, a guide who reduces the fear, a first try at something new, showing a colleague, and finally value measured and shared."><figcaption>Change sticks when the fear of losing something is met first. That is what Guide is for.</figcaption></figure>
+      <figure class="sketch"><img src="images/sketch-change-journey.webp" width="1400" height="788" loading="lazy" alt="Hand-drawn sketch by Rachael Acker of how change takes hold. A person says “but I’ve always done it this way.” A triggering event leads to fear of loss, then a decision to change, a guide who reduces the fear, a first try at something new, showing a colleague, and finally value measured and shared."><figcaption>Change sticks when the fear of losing something is met first. We start there.</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="questions" class="wrap">
+    <p class="kicker">Straight answers</p>
+    <h2>What you’d ask us first</h2>
+    <dl class="qa">
+      <div><dt>What does it cost?</dt><dd>A flat fee, quoted before any work starts. Never a share of what you earn.</dd></div>
+      <div><dt>Are you a billing company?</dt><dd>No. We don’t submit claims, pick codes or give legal advice. The map shows where you need those, so you can buy them on purpose.</dd></div>
+      <div><dt>Should I fire my billing service?</dt><dd>Maybe not. A good one earns its fee. <a href="https://www.medicaleconomics.com/view/what-independent-practices-get-wrong-when-they-hire-a-billing-company">The percentage tells you what it costs, not what it collects.</a> The map gives you a fair way to judge.</dd></div>
+      <div><dt>Do I need insurance to start?</dt><dd>Not always. Self-pay removes whole steps and narrows who can afford you. The map shows both routes.</dd></div>
+      <div><dt>Has this worked for a practice?</dt><dd>The decision map is new, and we’d rather say so. The method behind it comes from the nurse-led work below.</dd></div>
+    </dl>
+  </section>
+
+  <section id="work" class="wrap">
+    <p class="kicker">Where the method comes from</p>
+    <h2>Built with nurses, not for them</h2>
+    <div class="grid">
+      <article class="card"><p class="kicker">With SONSIEL</p><h3>Innovation workshops</h3><p>Nurse-led teams used Aurora, our AI innovation advisor, to move from a health challenge to a plan they could act on.</p></article>
+      <article class="card"><p class="kicker">With Boston College</p><h3>Diabetes Prevention Program</h3><p>Research, culturally sensitive design and a one-day hackathon with the Vietnamese American community.</p></article>
+      <article class="card"><p class="kicker">With Boston College and Mass General Brigham</p><h3>iSense</h3><p>A pilot to help prevent delirium by knowing each patient as a person.</p></article>
+    </div>
+    <p class="also"><strong>Also:</strong> Nurses You Should Know, a nurse-led Forest Therapy initiative, and illustrations with the University of Pennsylvania. Building a product team’s idea instead? <a href="https://healthero.ai">Meet Aurora at healthero.ai.</a></p>
+    <div class="grid two sketchrow">
       <figure class="sketch"><img src="images/sketch-humanity-centered.webp" width="1400" height="788" loading="lazy" alt="Hand-drawn sketch by Rachael Acker. On the left, three overlapping circles labelled desirable, feasible and viable, with user-centered in the middle. On the right, three larger circles labelled beneficial, responsible and sustainable, with humanity-centered in the middle. An arrow runs from engagement to wellbeing, from the individual to the community to society."><figcaption>We design past “will people use it” to “is it good for them, and can it last.”</figcaption></figure>
     </div>
   </section>
 
-  <section id="work" class="wrap">
-    <p class="kicker">Proof</p>
-    <h2>Collaborations</h2>
-    <div class="grid">
-      <article class="card"><p class="kicker">01 · With SONSIEL</p><h3>Innovation workshops</h3><p>Nurse-led teams used Aurora, our AI innovation advisor, to move from a health challenge to a plan they could act on.</p><p class="leave"><strong>Healthero’s part:</strong> Aurora and the workshop method.</p></article>
-      <article class="card"><p class="kicker">02 · With Boston College</p><h3>Diabetes Prevention Program</h3><p>A human-centered design partnership to improve diabetes prevention in the Vietnamese American community: research into unmet needs first, then culturally sensitive interventions, and a one-day design hackathon.</p><p class="leave"><strong>Healthero’s part:</strong> Design strategy, the research framework and facilitation.</p></article>
-      <article class="card"><p class="kicker">03 · With Boston College and Mass General Brigham</p><h3>iSense</h3><p>A quality improvement pilot to help prevent delirium by knowing each patient as a person: a short intake, a one-page summary, and a stocked comfort cart.</p></article>
-    </div>
-    <p class="also"><strong>Also:</strong> Nurses You Should Know, a nurse-led Forest Therapy initiative, and illustrations with the University of Pennsylvania.</p>
-  </section>
-
   <section id="contact" class="wrap">
-    <p class="kicker">Contact</p>
-    <h2>Rachael Acker</h2>
-    <p class="lead contact">Founder, Healthero. Tell us where you are, at zero or at one, and we’ll tell you honestly whether a decision map would help. Write to <a href="mailto:info@healthero.io">info@healthero.io</a>.</p>
+    <p class="kicker">Talk to us</p>
+    <h2>Tell us where you are</h2>
+    <p class="lead">Rachael Acker, founder, reads every note. One line is enough.</p>
+    <div class="actions" style="margin-top:1.5rem">
+      <a class="button large" href="mailto:info@healthero.io?subject=I%20won%20a%20pitch">I’m at zero</a>
+      <a class="button large" href="mailto:info@healthero.io?subject=I%20run%20a%20practice">I’m at one</a>
+      <a class="button large outline" href="mailto:info@healthero.io?subject=Decision%20maps%20for%20our%20cohort">I run a program</a>
+    </div>
+    <p class="lead small">Or write to <a href="mailto:info@healthero.io">info@healthero.io</a>.</p>
   </section>
 
 </main>
@@ -331,7 +300,7 @@ footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-betw
   <div class="wrap">
     <p class="line">Software proposes. <strong>A named person decides.</strong></p>
     <div class="trail">
-      <span>Decision map / Work with us / Method / Collaborations / Contact</span>
+      <span>Flat fee / No percentage / Your practice, your call</span>
       <span>© 2026 Healthero LLC. All rights reserved</span>
     </div>
   </div>
@@ -488,7 +457,7 @@ footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-betw
       Array.prototype.forEach.call(nav.children, function (b, k) { b.setAttribute("aria-selected", k === i ? "true" : "false"); b.tabIndex = k === i ? 0 : -1; });
       panel.textContent = ""; var s = S[i];
       panel.appendChild(el("p", "stepno", "Step " + (i + 1) + " of " + S.length)); panel.appendChild(el("h3", null, s.name)); panel.appendChild(el("p", "intent", s.intent));
-      LANES.forEach(function (ln) { panel.appendChild(el("p", "lane " + ln[2], ln[1])); panel.appendChild(ln[3](s)); });
+      var g = el("div", "lanes"); LANES.forEach(function (ln) { var d = el("div"); d.appendChild(el("p", "lane " + ln[2], ln[1])); d.appendChild(ln[3](s)); g.appendChild(d); }); panel.appendChild(g);
     }
     S.forEach(function (s, i) { var b = el("button", null, (i + 1) + ". " + s.name); b.type = "button"; b.setAttribute("role", "tab"); b.addEventListener("click", function () { show(i); });
       b.addEventListener("keydown", function (ev) { var d = ev.key === "ArrowRight" ? 1 : ev.key === "ArrowLeft" ? -1 : 0; if (d) { var n = (i + d + S.length) % S.length; show(n); nav.children[n].focus(); } }); nav.appendChild(b); });
