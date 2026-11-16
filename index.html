@@ -133,7 +133,7 @@ footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-betw
   <a class="brand" href="#top">HEALTHERO</a>
   <nav aria-label="Main">
     <ul>
-      <li><a href="#map">Decision map</a></li><li><a href="#practice">Work with us</a></li><li><a href="#method">Method</a></li><li><a href="#contact">Contact</a></li>
+      <li><a href="#start">Start</a></li><li><a href="#map">Decision map</a></li><li><a href="#programs">Programs</a></li><li><a href="#practice">Work with us</a></li><li><a href="#contact">Contact</a></li>
       <li><a class="button" href="https://healthero.ai">Aurora at healthero.ai</a></li>
     </ul>
   </nav>
@@ -144,11 +144,11 @@ footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-betw
   <div id="top" class="hero wrap">
     <div class="copy">
       <p class="kicker">Decision design for nurse-led care</p>
-      <h1>Design how your practice runs before you hire it out.</h1>
-      <p class="lead">Healthero helps nurse innovators and small practices map every step from a new patient to a paid claim: who decides, what software may do, and what the rules require. <strong>We do the work with you.</strong></p>
+      <h1>Run your own practice. Keep your own margin.</h1>
+      <p class="lead">Healthero helps nurse innovators and small practices design how the work runs: who decides, what software may do, and how you’ll know it’s working. So you choose what to hand off, and what it should cost. <strong>We do the work with you.</strong></p>
       <div class="actions">
-        <a class="button large" href="#map">See a decision map</a>
-        <a class="button large outline" href="#contact">Talk it through</a>
+        <a class="button large" href="#start">Find where you are</a>
+        <a class="button large outline" href="#map">See a decision map</a>
       </div>
     </div>
     <div class="bars" aria-hidden="true">
@@ -157,6 +157,57 @@ footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-betw
   </div>
   </div>
 
+  <section id="start" class="wrap">
+    <p class="kicker">Start where you are</p>
+    <h2>Two starting points, one map</h2>
+    <div class="grid two">
+      <article class="card path">
+        <p class="pill">0 to 1</p>
+        <h3>You won the pitch. Now it has to run.</h3>
+        <p>You have an idea people believed in, and no operations yet. The first decisions set your costs for years.</p>
+        <ol>
+          <li><strong>Decide how you get paid.</strong> Self-pay, insurance, or both. Each changes every step after it.</li>
+          <li><strong>Start the slow things first.</strong> Joining an insurance plan commonly takes 90 to 120 days, and visits before then usually can’t be billed to it.</li>
+          <li><strong>Map your first patient.</strong> From first contact to first payment, one page.</li>
+        </ol>
+        <p class="leave"><strong>You leave with:</strong> a decision map for your first year, and the three things to do this month.</p>
+      </article>
+      <article class="card path">
+        <p class="pill">1 to steady</p>
+        <h3>You’re seeing patients. The admin is eating the practice.</h3>
+        <p>Notes at night, claims that bounce, and a share of every payment going to someone else to chase the rest.</p>
+        <ol>
+          <li><strong>Find where minutes and money leak.</strong> Step by step, with your own numbers.</li>
+          <li><strong>Decide what stays in your hands.</strong> What software may do, what a person must decide, what is worth paying for.</li>
+          <li><strong>Watch six numbers.</strong> One per step, so you know early when something slips.</li>
+        </ol>
+        <p class="leave"><strong>You leave with:</strong> a decision map of your practice as it runs today, and the order to fix it in.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="margin" class="wrap">
+    <p class="kicker">The percentage</p>
+    <h2>Know what each step costs before you sign it away</h2>
+    <div class="grid two">
+      <div class="prose">
+        <p>Most small practices hand billing to a service that keeps a share of what it collects. Published rates run from 4 to 10 percent. On $400,000 a year, that is $16,000 to $40,000.</p>
+        <p>A billing service can be the right choice. The trouble is choosing it blind. The fee tells you what the service costs. It doesn’t tell you what it collects, which claims it lets age, or which of your decisions it is quietly making.</p>
+        <p class="fact">“The percentage-of-collections model has a built-in misalignment.” <a href="https://www.medicaleconomics.com/view/what-independent-practices-get-wrong-when-they-hire-a-billing-company">Medical Economics, June 2026</a>. Rates: <a href="https://neolytix.com/articles/what-is-the-going-rate-for-medical-billing-services/">Neolytix pricing guide, 2026</a>.</p>
+      </div>
+      <article class="card">
+        <h3>What we do, and what we don’t</h3>
+        <ul class="plain">
+          <li><strong>We do</strong> map your practice with you, design who decides what, and help you pick and set up the tools.</li>
+          <li><strong>We do</strong> charge a flat fee you know in advance.</li>
+          <li><strong>We don’t</strong> take a percentage of what you earn.</li>
+          <li><strong>We don’t</strong> submit your claims or act as your billing service.</li>
+          <li><strong>We don’t</strong> give legal or coding advice. The map shows where you need it.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
   <div class="stage band">
   <section id="map" class="wrap">
     <p class="kicker">What we make</p>
@@ -164,10 +215,17 @@ footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-betw
     <p class="lead">An agentic decision map. Each column is the intent of one step in the journey. Lanes run from empathy through services and information flows to policies and protocols, with agent and human-in-the-loop interactions and real-time monitoring.</p>
     <p class="lead small">This one is made up: a one or two clinician practice, from a new patient to a paid claim. The readings are examples, not real data.</p>
 
-    <div class="scroll bpwrap" tabindex="0" role="region" aria-label="Decision map, made-up example. Scroll sideways to read all six steps." id="map-table"></div>
-    
+    <div class="scroll bpwrap has-cards" tabindex="0" role="region" aria-label="Decision map, made-up example. Scroll sideways to read all six steps." id="map-table"></div>
+    <div id="map-cards" class="mapcards"></div>
   </section>
   </div>
+
+  <section id="programs" class="wrap">
+    <p class="kicker">For programs</p>
+    <h2>Your winners leave with a prize. Give them a way to run it.</h2>
+    <p class="lead">Societies, hackathons and accelerators get nurse-led ideas to a pitch. The year after the pitch is where most of them stall, on operations nobody taught. We run a decision-map session for your cohort, and each team leaves with the first year on one page.</p>
+    <p class="lead"><a href="mailto:info@healthero.io?subject=Decision%20maps%20for%20our%20cohort">Ask about a cohort session: info@healthero.io</a></p>
+  </section>
 
   <section id="practice" class="wrap">
     <p class="kicker">Ways to work together</p>
