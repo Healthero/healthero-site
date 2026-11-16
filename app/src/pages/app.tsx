@@ -14,7 +14,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { ScoreMeter } from "@/patterns/site";
 import { STEPS, LENSES, DECK, confidence, trust, trustRung } from "@/content/steps";
-import { ENV, buildPrompt, clip, slug, screen, useCap, type Cap } from "@/lib/aurora";
+import { ENV, buildPrompt, clip, slug, screen, useCap, parseMap, MAP_LANES, type Cap, type MapStep } from "@/lib/aurora";
 
 type Msg = { who: string; by?: string; text: string; rate?: number };
 type FieldDoc = { text?: string; basis?: string; by?: string };
@@ -168,6 +168,7 @@ function Team({ cap, code, onLeave }: { cap: Cap; code: string; onLeave: () => v
   const out = text(step.id, "out").length >= 3;
   const persona: string = (team && team.persona) || "";
   const assessment: string = (team && team.assessment) || "";
+  const dmap: MapStep[] = (team && team.map && Array.isArray(team.map.steps) ? team.map.steps : []) as MapStep[];
   const [copied, setCopied] = React.useState("");
   const ci = team && team.cards ? team.cards[step.id] : undefined;
   const card = typeof ci === "number" ? DECK[ci] : null;
@@ -176,7 +177,9 @@ function Team({ cap, code, onLeave }: { cap: Cap; code: string; onLeave: () => v
   function prompt(level: string, last: string) {
     const sf = STEPS[0].fields.filter((f) => text("sense", f.id).length >= 3);
     const so = sf.filter((f) => fields["sense_" + f.id]?.basis === "observed").length;
-    return buildPrompt({ step, sense: STEPS[0], level, last, persona, card, chat,
+    const all: string[] = [];
+    STEPS.filter((x) => x.tier === "self").forEach((x) => x.fields.forEach((f) => { const v = text(x.id, f.id); if (v) all.push(x.name + " / " + f.label + ": " + clip(v, 260)); }));
+    return buildPrompt({ step, sense: STEPS[0], level, last, persona, card, chat, all,
       confidenceLine: (confidence(so, sf.length) ?? 0) + "%. " + so + " of " + sf.length + " notes were observed. The rest are assumptions.",
       earlier: STEPS.slice(0, cur).filter((x) => x.tier === "self").map((x) => ({ name: x.name, out: text(x.id, "out") })),
       lens: team && LENSES[team.lens] ? LENSES[team.lens][1] : undefined,
@@ -206,6 +209,14 @@ function Team({ cap, code, onLeave }: { cap: Cap; code: string; onLeave: () => v
       const leak = screen(reply);
       if (leak) reply = "Aurora's reply was held back because it looked like it contained " + leak + ". Ask again.";
       const tokens = Math.ceil((p.length + reply.length) / 4);
+      if (level === "map") {
+        const raw = String((res && res.text) || "");
+        if (screen(raw)) throw { code: "leak" };
+        const steps = parseMap(raw);
+        if (!steps) throw { code: "badmap" };
+        await cap.db.doc(base).update({ map: { steps }, aiCalls: ((team && team.aiCalls) || 0) + 1, aiTokens: ((team && team.aiTokens) || 0) + Math.ceil((p.length + raw.length) / 4) });
+        setNote(HELP); setLive(null); setBusy(false); return;
+      }
       if (level === "persona") await cap.db.doc(base).update({ persona: reply });
       else if (level === "assessment") await cap.db.doc(base).update({ assessment: reply });
       else await writeChat((m) => m.concat(pre, [{ who, text: reply }]));
@@ -213,7 +224,7 @@ function Team({ cap, code, onLeave }: { cap: Cap; code: string; onLeave: () => v
       setNote(HELP);
     } catch (e: any) {
       const c = e && e.code;
-      setNote(c === "busy" ? "A teammate is already talking with Aurora. Try again in a moment." : c === "rate_limited" ? "Aurora is at its limit for now. Keep working on the canvas and try again in a few minutes." : c === "not_granted" ? "Aurora needs your permission to answer in this view. The canvas still works without it." : "Aurora couldn't answer just now. Your canvas is unaffected. Try again.");
+      setNote(c === "badmap" ? "Aurora's draft didn't come back in a shape we could draw. Try again." : c === "leak" ? "Aurora's draft was held back because it looked like it contained a personal detail. Try again." : c === "busy" ? "A teammate is already talking with Aurora. Try again in a moment." : c === "rate_limited" ? "Aurora is at its limit for now. Keep working on the canvas and try again in a few minutes." : c === "not_granted" ? "Aurora needs your permission to answer in this view. The canvas still works without it." : "Aurora couldn't answer just now. Your canvas is unaffected. Try again.");
     }
     setLive(null); setBusy(false);
   }
@@ -260,6 +271,28 @@ function Team({ cap, code, onLeave }: { cap: Cap; code: string; onLeave: () => v
               {assessment && <p className="whitespace-pre-wrap border-t pt-3 text-[15px]"><strong>Strategic assessment</strong>{"\n"}{assessment}</p>}
             </CardContent>
           </Card>
+          {step.id === "govern" && (
+            <Card>
+              <CardHeader><CardTitle className="flex flex-wrap items-center gap-2 font-sans text-sm uppercase tracking-wider text-accent">Your decision map <Badge variant="outline">Draft by Aurora, for your team to correct</Badge></CardTitle></CardHeader>
+              <CardContent className="flex flex-col items-start gap-3">
+                {dmap.length === 0 && <p className="text-muted-foreground">Aurora can draft a first decision map from what your team wrote in Sense, Shape and Build: each step of the journey, what people feel, how it works today, what software may do, what a person decides, the rule that applies and the number to watch.</p>}
+                {dmap.length > 0 && (
+                  <div className="w-full overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring" tabIndex={0} role="region" aria-label="Decision map draft. Scroll sideways to read every step.">
+                    <table className="w-full min-w-[720px] border-collapse text-left text-[14px]">
+                      <caption className="sr-only">Draft decision map</caption>
+                      <thead><tr><th scope="col" className="sr-only">Lane</th>{dmap.map((m, i) => <th key={i} scope="col" className="border-b border-l bg-secondary p-2 align-top"><span className="block text-xs uppercase tracking-wider text-muted-foreground">Step {i + 1}</span><span className="block font-display text-lg font-bold">{m.name}</span><span className="block font-normal">{m.intent}</span></th>)}</tr></thead>
+                      <tbody>{MAP_LANES.map(([k, label]) => <tr key={k}><th scope="row" className="w-32 border-b p-2 align-top text-xs uppercase tracking-wider">{label}</th>{dmap.map((m, i) => <td key={i} className="border-b border-l p-2 align-top">{m[k]}</td>)}</tr>)}</tbody>
+                    </table>
+                  </div>
+                )}
+                <div className="flex flex-wrap items-center gap-2">
+                  <Button size="sm" variant="outline" disabled={!can} onClick={() => ask("map", "")}>{dmap.length ? "Draft it again" : "Draft our decision map"}</Button>
+                  <span role="status" className="text-sm text-muted-foreground">{note === HELP ? "" : note}</span>
+                </div>
+                <p className="text-sm text-muted-foreground">Anything marked [Assumed] is Aurora's guess. In an engagement, Healthero replaces the guesses with what your people and your numbers say.</p>
+              </CardContent>
+            </Card>
+          )}
           <p>This step runs with Healthero alongside your team. To talk it through, write to info@healthero.io.</p>
         </div>
       ) : (

@@ -116,6 +116,16 @@ const LONG = "The night nurse reads the discharge sheet aloud to a sleepy patien
   tab(A, 3).dispatchEvent(new A.contentWindow.MouseEvent("mousedown", { bubbles: true, button: 0 })); tab(A, 3).focus(); await wait(500);
   check("E1", "Guide shows as an engagement, with no Aurora panel", /Engagement with Healthero/.test(D(A).body.textContent) && /living blueprint/.test(D(A).body.textContent) && !btn(A, "Ask me a question"));
 
+  tab(A, 4).dispatchEvent(new A.contentWindow.MouseEvent("mousedown", { bubbles: true, button: 0 })); tab(A, 4).focus(); await wait(500);
+  S.calls.length = 0; S.reply = "Here you go: not json at all";
+  btn(A, "Draft our decision map").click(); await wait(1200);
+  check("M1", "A draft that is not a map is refused with a plain message", /didn't come back in a shape/.test(D(A).body.textContent) && !D(A).querySelector("table caption"));
+  S.reply = '```json\n{"steps":[{"name":"Night discharge","intent":"Know what to do at home.","feel":"Families feel rushed.","today":"A folder at 10 a.m.","software":"Drafts a one-page summary.","person":"The discharging nurse signs.","rule":"The nurse is responsible for teaching.","measure":"Families who can say back the plan."},{"name":"First night home","intent":"Someone to ask.","feel":"[Assumed] Alone and unsure.","today":"A phone number on a sheet.","software":"Sends a morning check-in.","person":"A nurse calls anyone who is unsure.","rule":"No clinical advice by message.","measure":"Calls to the unit, falling."}]}\n```';
+  btn(A, "Draft our decision map").click(); await wait(1400);
+  tab(B, 4).dispatchEvent(new B.contentWindow.MouseEvent("mousedown", { bubbles: true, button: 0 })); tab(B, 4).focus(); await wait(600);
+  const mt = D(B).querySelector("table");
+  check("M2", "At the final step Aurora drafts a decision map, drawn as lanes and steps for the whole team", !!mt && /Night discharge/.test(mt.textContent) && /What software may do/.test(mt.textContent) && /Rules that don't bend/.test(mt.textContent) && mt.querySelectorAll("thead th").length === 3, mt ? mt.querySelectorAll("tbody tr").length + " lanes" : "no table");
+  check("M3", "The map prompt uses the team's notes from all three self-serve steps and asks for JSON", S.calls.length === 2 && /Sense \/ /.test(S.calls[1].prompt) && /JSON only/.test(S.calls[1].prompt), S.calls.length ? S.calls[S.calls.length - 1].chars + " characters" : "");
   document.getElementById("out").textContent = "RESULTS" + JSON.stringify(out) + "END";
 })().catch((e) => { document.getElementById("out").textContent = "RESULTS" + JSON.stringify(out.concat([{ id: "CRASH", name: String(e && e.stack || e), pass: false, saw: "" }])) + "END"; });
 </script>
