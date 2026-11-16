@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Healthero: decision design for health software</title>
-<meta name="description" content="Healthero is a decision design agency. We help health software teams reach the market faster by designing who decides what, person or agent.">
+<title>Healthero: decision design for nurse-led care</title>
+<meta name="description" content="Healthero helps nurse innovators and small practices design how the work runs: who decides, what software may do, and how you will know it is working.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 <!-- Colors, fonts and radii come from the shared design system. Edit them there, not here. -->
@@ -15,8 +15,12 @@
 html { scroll-behavior: smooth; }
 body { margin: 0; background: hsl(var(--background)); color: hsl(var(--foreground)); font-family: var(--font-body); font-size: 1rem; line-height: 1.6; }
 h1, h2, h3, h4 { margin: 0; font-family: var(--font-display); text-wrap: balance; }
+h1 { font-weight: 300; font-size: clamp(2.25rem, 6vw, 3.75rem); line-height: 1.02; letter-spacing: -0.01em; text-transform: uppercase; }
+h2 { font-weight: 300; font-size: clamp(1.9rem, 4.4vw, 2.25rem); line-height: 1.1; max-width: 26ch; }
+h3 { font-weight: 700; font-size: 1.375rem; line-height: 1.25; }
 p { margin: 0; }
 a { color: hsl(var(--primary)); }
+img { max-width: 100%; height: auto; display: block; }
 :focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 2px; }
 .wrap { max-width: var(--width-page); margin: 0 auto; padding-inline: 1.25rem; }
 .skip { position: absolute; left: -999px; }
@@ -28,47 +32,31 @@ nav a { display: inline-block; padding-block: 0.5rem; text-decoration: none; col
 nav a:hover { text-decoration: underline; }
 .button, nav a.button { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0.5rem 1.25rem; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); font-weight: 600; text-decoration: none; border: 1px solid hsl(var(--primary)); border-radius: var(--radius-control); }
 .button.large { min-height: 3.5rem; padding-inline: 2rem; font-size: 1.0625rem; }
-.button.outline { background: transparent; color: hsl(var(--foreground)); border-color: hsl(var(--foreground)); }
+.button.outline { background: hsl(var(--background)); color: hsl(var(--foreground)); border-color: hsl(var(--foreground)); }
 .button:hover { opacity: 0.88; }
 .kicker { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: hsl(var(--muted-foreground)); }
 .actions { display: flex; flex-wrap: wrap; gap: 1rem; }
 section { padding-block: var(--space-section) 0; }
 section > .kicker { margin-bottom: 0.75rem; }
-section > .lead { margin-top: 1.5rem; max-width: var(--width-text); font-size: 1.125rem; }
+section > .lead { margin-top: 1.25rem; max-width: var(--width-text); font-size: 1.125rem; }
+section > .lead.small { font-size: 0.9375rem; color: hsl(var(--muted-foreground)); margin-top: 0.75rem; }
 .grid { display: grid; gap: 1.25rem; margin-top: 2.5rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.grid.two { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
 .card { display: flex; flex-direction: column; gap: 0.75rem; padding: 1.5rem; background: hsl(var(--card)); color: hsl(var(--card-foreground)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); }
 .leave { margin-top: auto; padding-top: 1rem; border-top: 1px solid hsl(var(--border)); font-size: 0.9375rem; }
-.badge { display: inline-block; vertical-align: middle; padding: 0.1rem 0.6rem; border-radius: 999px; font-family: var(--font-tag); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
-.scroll { overflow-x: auto; margin-top: 2.5rem; }
-table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; }
-thead th { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: hsl(var(--muted-foreground)); }
-th, td { padding: 1rem 1.5rem 1rem 0; border-bottom: 1px solid hsl(var(--border)); vertical-align: top; }
-tbody th { font-family: var(--font-display); font-size: 1.5rem; }
-footer.site { margin-top: var(--space-section); background: var(--band); color: var(--band-foreground); }
-footer.site .wrap { display: flex; flex-direction: column; gap: 2.5rem; padding-block: 3.5rem 2rem; }
-footer.site .top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1.5rem; }
-footer.site .line { max-width: 28ch; font-family: var(--font-display); font-weight: 300; font-size: clamp(1.75rem, 4vw, 2.25rem); line-height: 1.25; }
-footer.site a { color: inherit; }
-footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2.5rem; padding-top: 1rem; border-top: 1px solid currentColor; font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-h1 { font-weight: 300; font-size: clamp(2.5rem, 6.4vw, 4rem); line-height: 1; letter-spacing: -0.01em; text-transform: uppercase; }
-h2 { font-weight: 300; font-size: clamp(1.9rem, 4.4vw, 2.25rem); line-height: 1.1; max-width: 24ch; }
-h3 { font-weight: 700; font-size: 1.5rem; line-height: 1.2; }
-.hero { display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem 4rem; padding-block: 3.5rem 5rem; }
-.hero .copy { flex: 999 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 1.5rem; }
-.hero .lead { max-width: 30ch; font-size: clamp(1.5rem, 3.4vw, 2.25rem); font-weight: 300; line-height: 1.15; }
+.also { margin-top: 1.5rem; max-width: var(--width-text); }
+.prose { display: flex; flex-direction: column; gap: 1rem; max-width: var(--width-text); }
+.fact { padding-left: 1rem; border-left: 4px solid hsl(var(--primary)); font-size: 0.9375rem; }
+ul.plain { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.path ol { margin: 0; padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.pill { display: inline-flex; align-items: center; justify-content: center; width: fit-content; min-width: 3rem; height: 2rem; padding-inline: 0.85rem; border-radius: 999px; background: var(--gold); color: hsl(var(--foreground)); font-weight: 700; font-size: 0.875rem; }
+.pill.ahead { background: transparent; border: 1px solid hsl(var(--foreground)); }
+.hero { display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem 4rem; padding-block: 3rem 4rem; }
+.hero .copy { flex: 999 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 1.5rem; background: hsl(var(--background)); padding: 2rem; border: 1px solid hsl(var(--foreground)); }
+.hero .lead { max-width: 34ch; font-size: clamp(1.25rem, 2.6vw, 1.625rem); font-weight: 300; line-height: 1.3; }
 /* The one gradient on this page: Tide, inside five pills, one per step. */
 .bars { flex: 1 1 220px; display: flex; align-items: flex-end; justify-content: center; gap: 0.9rem; height: 260px; }
 .bars span { width: 2.4rem; border-radius: 999px; background: var(--gradient-tide); }
-.rule { border: 0; border-top: 1px solid hsl(var(--foreground)); margin: 0; }
-.steps { display: grid; gap: 1.5rem 2rem; margin: 2.5rem 0 0; padding: 0; list-style: none; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
-.steps li { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; font-size: 0.9375rem; }
-.steps h3 { font-size: 1.25rem; }
-.pill { display: inline-flex; align-items: center; justify-content: center; min-width: 3rem; height: 2rem; padding-inline: 0.75rem; border-radius: 999px; background: var(--gold); color: hsl(var(--foreground)); font-weight: 700; font-size: 0.875rem; }
-.pill.ahead { background: transparent; border: 1px solid hsl(var(--foreground)); }
-.badge { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
-.also { margin-top: 1.5rem; max-width: var(--width-text); }
-.fact { margin-top: 2rem; max-width: var(--width-text); padding-left: 1rem; border-left: 4px solid hsl(var(--primary)); }
 /* The stage: stone 100 with hairlines, the ground that shapes and diagrams sit on. */
 .stage { position: relative; overflow: hidden; background-color: var(--stage); background-image: linear-gradient(hsl(var(--border)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--border)) 1px, transparent 1px); background-size: 56px 56px; border-bottom: 1px solid hsl(var(--foreground)); }
 .stage::before, .stage::after { content: ""; position: absolute; border: 1px solid hsl(var(--foreground)); border-radius: 50%; pointer-events: none; }
@@ -78,27 +66,64 @@ h3 { font-weight: 700; font-size: 1.5rem; line-height: 1.2; }
 .stage.band { margin-top: var(--space-section); border-top: 1px solid hsl(var(--foreground)); padding-bottom: var(--space-section); }
 .stage.band::before { right: -180px; top: -330px; }
 .stage.band::after { display: none; }
-.hero .copy { background: hsl(var(--background)); padding: 2rem; border: 1px solid hsl(var(--foreground)); }
-/* Decision blueprint: lanes down, steps across, a track of nodes through the middle. */
-.bpwrap { margin-top: 2.5rem; background: hsl(var(--card)); border: 1px solid hsl(var(--foreground)); }
-table.bp { min-width: 1040px; border-collapse: separate; border-spacing: 0; font-size: 0.875rem; }
-table.bp thead th { padding: 0.75rem; text-align: left; border-bottom: 1px solid hsl(var(--border)); }
-table.bp td, table.bp tbody th { padding: 0.5rem; border-bottom: 0; vertical-align: top; }
-table.bp td { border-left: 1px dashed hsl(var(--input)); width: 22%; }
-table.bp tbody th { position: sticky; left: 0; z-index: 2; background: hsl(var(--card)); width: 150px; font-family: var(--font-body); font-size: 0.75rem; }
-.lane { display: block; padding: 0.5rem 0.6rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.2; }
-.bcard { padding: 0.55rem 0.65rem; line-height: 1.35; }
-.gold { background: var(--tint-gold); } .sea { background: var(--tint-sea); } .cobalt { background: var(--tint-cobalt); } .vermilion { background: var(--tint-vermilion); }
-.lane.agent, .bcard.agent { background: hsl(var(--card)); outline: 1.5px dashed hsl(var(--primary)); outline-offset: -1.5px; }
-.lane.plain, .bcard.plain { background: hsl(var(--card)); outline: 1px solid hsl(var(--border)); outline-offset: -1px; }
-.lane.out, .bcard.out { background: hsl(var(--secondary)); }
-.rung { display: block; width: fit-content; margin-top: 0.4rem; padding: 0.1rem 0.45rem; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); font-size: 0.6875rem; font-weight: 700; border-radius: 999px; }
-tr.track td, tr.track th { background: var(--tint-cobalt); text-align: center; border-left: 0; padding-block: 0.9rem; }
-tr.track th span { display: block; padding: 0.5rem 0.6rem; background: hsl(var(--foreground)); color: hsl(var(--background)); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-align: left; }
-tr.track p { font-size: 0.8125rem; }
-.node { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 6.5rem; height: 6.5rem; margin: 0 auto 0.4rem; border-radius: 50%; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); font-family: var(--font-display); font-weight: 700; line-height: 1.1; }
-.node span { font-weight: 300; font-size: 1.5rem; }
+.steps { display: grid; gap: 1.5rem 2rem; margin: 2.5rem 0 0; padding: 0; list-style: none; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+.steps li { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; font-size: 0.9375rem; }
+.steps h3 { font-size: 1.25rem; }
+/* Sketches */
+.sketchrow { align-items: start; }
+.sketch { margin: 0; background: #fff; border: 1px solid hsl(var(--border)); padding: 0.75rem; }
+.sketch figcaption { padding: 0.75rem 0.25rem 0.25rem; font-size: 0.9375rem; }
+/* Iceberg legend */
+.legend { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; margin: 2rem 0 0; padding: 1.25rem; background: hsl(var(--card)); border: 1px solid hsl(var(--border)); max-width: 820px; }
+.berg { width: 150px; flex: none; }
+.berg .b1 { fill: var(--tint-gold); stroke: hsl(var(--foreground)); stroke-width: 1.5; }
+.berg .b2 { fill: var(--tint-sea); stroke: hsl(var(--foreground)); stroke-width: 1.5; }
+.berg .b3 { fill: var(--stage); stroke: hsl(var(--foreground)); stroke-width: 1.5; }
+.berg .water { fill: none; stroke: hsl(var(--primary)); stroke-width: 2; stroke-dasharray: 5 5; }
+.legend figcaption { flex: 1 1 320px; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9375rem; }
+.key { display: inline-block; width: 0.85rem; height: 0.85rem; margin-right: 0.5rem; vertical-align: -1px; border: 1px solid hsl(var(--foreground)); }
+.key.gold { background: var(--tint-gold); } .key.sea { background: var(--tint-sea); } .key.stone { background: var(--stage); } .key.cobalt { background: var(--tint-cobalt); }
+/* Decision map: lanes down, steps across. */
+.scroll { overflow-x: auto; }
+.bpwrap { margin-top: 2rem; background: hsl(var(--card)); border: 1px solid hsl(var(--foreground)); }
+table.bp { min-width: 1560px; width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.875rem; text-align: left; }
+table.bp thead th { padding: 0.9rem 0.6rem; vertical-align: top; background: var(--tint-cobalt); border-left: 1px dashed hsl(var(--input)); border-bottom: 1px solid hsl(var(--foreground)); }
+table.bp thead th:first-child { border-left: 0; }
+.stepno { display: block; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: hsl(var(--muted-foreground)); }
+.stepname { display: block; font-family: var(--font-display); font-weight: 700; font-size: 1.125rem; }
+.intent { display: block; margin-top: 0.25rem; font-weight: 400; font-size: 0.9375rem; line-height: 1.35; }
+table.bp td, table.bp tbody th { padding: 0.5rem; vertical-align: top; }
+table.bp td { border-left: 1px dashed hsl(var(--input)); width: 15.5%; }
+table.bp tbody th { position: sticky; left: 0; z-index: 2; background: hsl(var(--card)); width: 140px; }
+.lane { display: block; padding: 0.5rem 0.6rem; font-family: var(--font-body); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.25; }
+.bcard { display: flex; flex-direction: column; gap: 0.45rem; padding: 0.6rem 0.7rem; line-height: 1.4; height: 100%; }
+.gold { background: var(--tint-gold); } .sea { background: var(--tint-sea); } .stone { background: var(--stage); }
+.lane.agent, .bcard.agent { background: var(--tint-cobalt); }
+.lane.plain, .bcard.plain { background: hsl(var(--card)); outline: 1px solid hsl(var(--foreground)); outline-offset: -1px; }
+.bias { font-style: italic; color: hsl(var(--muted-foreground)); }
+.rung { width: fit-content; padding: 0.1rem 0.5rem; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); font-size: 0.6875rem; font-weight: 700; border-radius: 999px; }
+.meter .mname { font-weight: 700; }
+.reading { display: flex; align-items: baseline; gap: 0.6rem; }
+.num { font-family: var(--font-display); font-weight: 300; font-size: 2rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.state { padding: 0.05rem 0.5rem; border-radius: 999px; font-size: 0.6875rem; font-weight: 700; border: 1px solid hsl(var(--foreground)); }
+.state.s-ontrack { background: var(--tint-sea); } .state.s-watch { background: var(--tint-gold); } .state.s-offtrack { background: var(--tint-vermilion); }
+.goal, .eg { font-size: 0.8125rem; color: hsl(var(--muted-foreground)); }
+/* One step at a time, for small screens. */
+.mapcards { display: none; margin-top: 2rem; }
+.steptabs { display: flex; gap: 0.4rem; overflow-x: auto; padding-bottom: 0.5rem; }
+.steptabs button { flex: none; min-height: 2.75rem; padding: 0.4rem 0.9rem; font: inherit; font-weight: 600; background: hsl(var(--card)); color: hsl(var(--foreground)); border: 1px solid hsl(var(--foreground)); border-radius: 999px; cursor: pointer; }
+.steptabs button[aria-selected="true"] { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); border-color: hsl(var(--primary)); }
+.steppanel { display: flex; flex-direction: column; gap: 0.5rem; padding: 1rem; background: hsl(var(--card)); border: 1px solid hsl(var(--foreground)); }
+.steppanel .lane { margin-top: 0.5rem; }
+.steppanel .bcard { height: auto; }
+@media (max-width: 820px) { .mapcards { display: block; } .has-cards { display: none; } }
+footer.site { margin-top: var(--space-section); background: var(--band); color: var(--band-foreground); }
+footer.site .wrap { display: flex; flex-direction: column; gap: 2.5rem; padding-block: 3.5rem 2rem; }
+footer.site .line { max-width: 28ch; font-family: var(--font-display); font-weight: 300; font-size: clamp(1.75rem, 4vw, 2.25rem); line-height: 1.25; }
+footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2.5rem; padding-top: 1rem; border-top: 1px solid currentColor; font-size: 0.8125rem; letter-spacing: 0.04em; text-transform: uppercase; }
 @media (max-width: 640px) { .hero .copy { padding: 1.25rem; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
 </style>
 </head>
 <body>
@@ -108,25 +133,22 @@ tr.track p { font-size: 0.8125rem; }
   <a class="brand" href="#top">HEALTHERO</a>
   <nav aria-label="Main">
     <ul>
-      <li><a href="#blueprint">Blueprint</a></li>
-      <li><a href="#practice">Services</a></li>
-      <li><a href="#method">Method</a></li>
-      <li><a href="#work">Collaborations</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#map">Decision map</a></li><li><a href="#practice">Work with us</a></li><li><a href="#method">Method</a></li><li><a href="#contact">Contact</a></li>
       <li><a class="button" href="https://healthero.ai">Aurora at healthero.ai</a></li>
     </ul>
   </nav>
 </header>
+
 <main id="main">
   <div class="stage">
   <div id="top" class="hero wrap">
     <div class="copy">
-      <p class="kicker">Decision design agency</p>
-      <h1>Design the decisions before you ship the product.</h1>
-      <p class="lead">Healthero helps health software teams reach the market faster and stay answerable. We design who decides what, person or agent, so your product clears a buyer's review and runs without workarounds. <strong>We do the work with you.</strong></p>
+      <p class="kicker">Decision design for nurse-led care</p>
+      <h1>Design how your practice runs before you hire it out.</h1>
+      <p class="lead">Healthero helps nurse innovators and small practices map every step from a new patient to a paid claim: who decides, what software may do, and what the rules require. <strong>We do the work with you.</strong></p>
       <div class="actions">
-        <a class="button large" href="#contact">Talk through your launch</a>
-        <a class="button large outline" href="#blueprint">See a decision blueprint</a>
+        <a class="button large" href="#map">See a decision map</a>
+        <a class="button large outline" href="#contact">Talk it through</a>
       </div>
     </div>
     <div class="bars" aria-hidden="true">
@@ -135,199 +157,75 @@ tr.track p { font-size: 0.8125rem; }
   </div>
   </div>
 
-  <section id="why" class="wrap">
-    <p class="kicker">Why it speeds you up</p>
-    <h2>Safe and accountable is the fast route to market</h2>
-    <div class="grid">
-      <article class="card">
-        <h3>Shorter reviews</h3>
-        <p>Privacy, security and clinical reviewers all ask the same thing in different words: who decides, and what does the software do on its own? You arrive with the answer on one page.</p>
-      </article>
-      <article class="card">
-        <h3>Fewer stalled pilots</h3>
-        <p>Pilots stall when the people using the product never agreed to what it may do. We design that agreement with them before the pilot starts.</p>
-      </article>
-      <article class="card">
-        <h3>Leaner operations</h3>
-        <p>Every decision has one owner and every exception has a place to go. Nothing waits in a queue nobody owns.</p>
-      </article>
-    </div>
-    <p class="fact">In a survey of about 650 US hospital leaders, 80% said AI vendor claims are hard to verify without a formal governance program. <a href="https://www.newswire.com/news/ai-governance-helps-hospitals-turn-stalled-pilots-into-fast-track-roi-22675682">Black Book Research</a>.</p>
-  </section>
-
   <div class="stage band">
-  <section id="blueprint" class="wrap">
+  <section id="map" class="wrap">
     <p class="kicker">What we make</p>
-    <h2>A decision blueprint</h2>
-    <p class="lead">One page that shows, step by step, who decides, what an agent may do, what it must never do, and what is written down. This one is made up: a discharge instructions assistant that a vendor sells to hospitals. No real product, unit or patient is described.</p>
-    <div class="scroll bpwrap" tabindex="0" role="region" aria-label="Decision blueprint, made-up example. Scroll sideways to read all four steps.">
-      <table class="bp">
-        <caption class="skip">Made-up decision blueprint for a discharge instructions assistant, in four steps</caption>
-        <thead><tr><th scope="col"><span class="skip">Lane</span></th><th scope="col">Step 1</th><th scope="col">Step 2</th><th scope="col">Step 3</th><th scope="col">Step 4</th></tr></thead>
-        <tbody>
-          <tr><th scope="row"><span class="lane gold">Patient and family</span></th><td><div class="bcard gold">Nothing visible yet</div></td><td><div class="bcard gold">Sees the nurse reading with them, not a screen</div></td><td><div class="bcard gold">Gets one page, in their language, with who to call</div></td><td><div class="bcard gold">Is asked one question: what was unclear?</div></td></tr>
-          <tr><th scope="row"><span class="lane sea">Nurse</span></th><td><div class="bcard sea">Opens a draft, never a blank page</div></td><td><div class="bcard sea">Reads every line. Changes what is wrong. Signs</div></td><td><div class="bcard sea">Teaches from the page at the bedside</div></td><td><div class="bcard sea">Sees which lines nurses changed most</div></td></tr>
-          <tr class="track"><th scope="row"><span>The journey</span></th><td><div class="node"><span>1</span>Draft</div><p>The assistant writes</p></td><td><div class="node"><span>2</span>Review</div><p>The nurse decides</p></td><td><div class="node"><span>3</span>Send home</div><p>The family receives</p></td><td><div class="node"><span>4</span>Learn</div><p>The unit reviews</p></td></tr>
-          <tr><th scope="row"><span class="lane cobalt">Who decides</span></th><td><div class="bcard cobalt">No decision yet</div></td><td><div class="bcard cobalt"><b>The discharging nurse.</b> Always</div></td><td><div class="bcard cobalt">The nurse, with the family</div></td><td><div class="bcard cobalt">The nurse manager, monthly</div></td></tr>
-          <tr><th scope="row"><span class="lane agent">The agent may</span></th><td><div class="bcard agent">Draft in plain language. Translate. Flag any medication line it is unsure of<span class="rung">Draft</span></div></td><td><div class="bcard agent">Show what changed since the last version<span class="rung">Suggest</span></div></td><td><div class="bcard agent">Send only what the nurse signed<span class="rung">Rule, not an agent</span></div></td><td><div class="bcard agent">Group the corrections by cause<span class="rung">Suggest</span></div></td></tr>
-          <tr><th scope="row"><span class="lane vermilion">Never</span></th><td><div class="bcard vermilion">Invent a dose or an instruction</div></td><td><div class="bcard vermilion">Mark its own draft as reviewed</div></td><td><div class="bcard vermilion">Send anything unsigned</div></td><td><div class="bcard vermilion">Rank nurses by how often they edit</div></td></tr>
-          <tr><th scope="row"><span class="lane plain">Logged</span></th><td><div class="bcard plain">Which sources the draft used</div></td><td><div class="bcard plain">What the nurse changed, and why, in one line</div></td><td><div class="bcard plain">Who signed, and when</div></td><td><div class="bcard plain">Corrections per month, by unit</div></td></tr>
-          <tr><th scope="row"><span class="lane out">Stop and measure</span></th><td><div class="bcard out">Stops if a source is missing</div></td><td><div class="bcard out">Three corrected medication lines in a month pauses drafting</div></td><td><div class="bcard out">Share of families who could say back the plan</div></td><td><div class="bcard out">Reviewed monthly, with the unit</div></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="also"><strong>How to read it.</strong> The top lanes are what people see. The middle row is the journey. Below it is the decision design: the owner, the agent's limits, the record and the stop rule. A buyer's reviewer reads down one column and has their answer.</p>
+    <h2>A decision map of your practice</h2>
+    <p class="lead">An agentic decision map. Each column is the intent of one step in the journey. Lanes run from empathy through services and information flows to policies and protocols, with agent and human-in-the-loop interactions and real-time monitoring.</p>
+    <p class="lead small">This one is made up: a one or two clinician practice, from a new patient to a paid claim. The readings are examples, not real data.</p>
+
+    <div class="scroll bpwrap" tabindex="0" role="region" aria-label="Decision map, made-up example. Scroll sideways to read all six steps." id="map-table"></div>
+    
   </section>
   </div>
 
   <section id="practice" class="wrap">
-    <p class="kicker">The practice</p>
-    <h2>Three ways to start</h2>
+    <p class="kicker">Ways to work together</p>
+    <h2>Start small. Keep it current.</h2>
     <div class="grid">
       <article class="card">
-        <p class="kicker">For a product team before or between releases</p>
+        <p class="kicker">One practice, a few sessions</p>
+        <h3>Your decision map</h3>
+        <p>We map your practice with you, step by step, using your own numbers where you have them.</p>
+        <p class="leave"><strong>You leave with:</strong> the map, six numbers to watch, and the order to act in.</p>
+      </article>
+      <article class="card">
+        <p class="kicker">A new service or product</p>
         <h3>Sense and Shape engagement</h3>
-        <p>Field research with the people who will use the product, then scenarios, a prototype and a test. Aurora does this with one team in an afternoon. We do it with your team and your customers over weeks.</p>
+        <p>Field research with the people you serve, then scenarios, a prototype and a test.</p>
         <p class="leave"><strong>You leave with:</strong> what people need, a tested prototype, and a decision you can defend.</p>
       </article>
       <article class="card">
-        <p class="kicker">For teams shipping agents into care</p>
-        <h3>AOS, an operating model for agents</h3>
-        <p>Which decisions stay with the clinician, what agents may propose, what is logged when someone overrides them, and how value is shown to the people who pay.</p>
-        <p class="leave"><strong>You leave with:</strong> a decision blueprint for your product, and a team that can keep it current without us.</p>
-      </article>
-      <article class="card">
-        <p class="kicker">For product teams, schools and societies</p>
+        <p class="kicker">Cohorts, schools and societies</p>
         <h3>Workshops and hackathons</h3>
         <p>Facilitated sessions where teams work a real health challenge with AI as a thinking partner, not an answer machine.</p>
-        <p class="leave"><strong>You leave with:</strong> teams who have framed a problem, imagined its future and pitched a first step.</p>
+        <p class="leave"><strong>You leave with:</strong> teams who have framed a problem and mapped a first step.</p>
       </article>
     </div>
-  </section>
-
-  <section id="retainers" class="wrap">
-    <p class="kicker">Then, month by month</p>
-    <h2>Two retainers, for products already in use</h2>
-    <div class="grid">
+    <div class="grid two" style="margin-top:1.25rem">
       <article class="card">
+        <p class="kicker">Month by month</p>
         <h3>Guide</h3>
-        <p>We keep your decision blueprint current as the product, the rules and your customers change. Every release is checked against it.</p>
-        <p class="leave"><strong>Each month:</strong> a current blueprint, and a note on what the last release changed.</p>
+        <p>We keep your map current as your practice, your tools and the rules change.</p>
       </article>
       <article class="card">
+        <p class="kicker">Month by month</p>
         <h3>Govern</h3>
-        <p>Live decision protocols that run in the background with your customers' people: what stays human, what agents may propose, what is logged on override.</p>
-        <p class="leave"><strong>Each month:</strong> an override review you can share with customers.</p>
-      </article>
-      <article class="card">
-        <h3>Terms</h3>
-        <p>A monthly fee. Three months to start, then cancel with 30 days' notice. Each retainer names what the month produces. No hourly billing.</p>
-        <p class="leave"><strong>Prices:</strong> on request, after a first conversation.</p>
+        <p>We review the numbers and the overrides with you, and adjust what software is allowed to do.</p>
       </article>
     </div>
+    <p class="also">A flat fee, agreed before we start. Prices on request while we work with our first practices.</p>
   </section>
 
   <section id="method" class="wrap">
-    <p class="kicker">One method</p>
-    <h2>Five steps, from an idea to work that holds</h2>
-    <p class="lead">Aurora takes a team through Sense, Shape and Build. An engagement goes further: Guide aligns the work to a living blueprint, and Govern keeps live decision protocols running in the background with your people.</p>
+    <p class="kicker">How we work</p>
+    <h2>Five steps</h2>
     <ol class="steps">
-      <li>
-        <span class="pill" aria-hidden="true">01</span>
-        <h3>Sense</h3>
-        <p>What did we see, who does it touch, and what does it cost them?</p>
-      </li>
-      <li>
-        <span class="pill" aria-hidden="true">02</span>
-        <h3>Shape</h3>
-        <p>What needs to change, where is the leverage, and what would we try first?</p>
-      </li>
-      <li>
-        <span class="pill" aria-hidden="true">03</span>
-        <h3>Build</h3>
-        <p>What is the smallest version we can put in front of real people, and what did they do with it?</p>
-      </li>
-      <li>
-        <span class="pill ahead" aria-hidden="true">04</span>
-        <h3>Guide <span class="badge">Engagement</span></h3>
-        <p>Does what we built still match how the work is really done, and who keeps that picture current?</p>
-      </li>
-      <li>
-        <span class="pill ahead" aria-hidden="true">05</span>
-        <h3>Govern <span class="badge">Engagement</span></h3>
-        <p>Which decisions stay with people, what may agents propose, and what happens when someone overrides them?</p>
-      </li>
+      <li><span class="pill">01</span><h3>Sense</h3><p>What did we see, who does it touch, and what does it cost them?</p></li>
+      <li><span class="pill">02</span><h3>Shape</h3><p>What needs to change, and what would we try first?</p></li>
+      <li><span class="pill">03</span><h3>Build</h3><p>The smallest version real people can try.</p></li>
+      <li><span class="pill ahead">04</span><h3>Guide</h3><p>Keep the map matched to how the work is really done.</p></li>
+      <li><span class="pill ahead">05</span><h3>Govern</h3><p>Watch the numbers, and decide what software may do next.</p></li>
     </ol>
-    <div class="scroll">
-      <table>
-        <caption class="skip">Specialist agents and guardrails by step</caption>
-        <thead>
-          <tr><th scope="col">Step</th><th scope="col">Specialist agents</th><th scope="col">Guardrail</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">Sense</th>
-            <td>Researcher, synthetic persona</td>
-            <td>No patient details. A synthetic persona never counts as evidence.</td>
-          </tr>
-          <tr>
-            <th scope="row">Shape</th>
-            <td>Ideation facilitator, scenario writer, jobs catalog</td>
-            <td>You answer first. Every idea carries its worst day.</td>
-          </tr>
-          <tr>
-            <th scope="row">Build</th>
-            <td>Experience designer, visual designer, interface developer</td>
-            <td>Accessible components and made-up records only. A person approves before anything is shared.</td>
-          </tr>
-          <tr>
-            <th scope="row">Guide</th>
-            <td>Blueprint keeper, usability reviewer, manual writer</td>
-            <td>The blueprint changes only when a named person approves the change.</td>
-          </tr>
-          <tr>
-            <th scope="row">Govern</th>
-            <td>Protocol monitor, evaluator, decision ledger</td>
-            <td>Agents propose. A named person decides, and every override is logged.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="grid">
-      <article class="card">
-        <p class="kicker">Confidence score</p>
-        <h3>How much is seen, how much is guessed</h3>
-        <p>Every note is marked observed or assumed. A step's confidence is the share your team observed. A plan resting on guesses says so on its face.</p>
-      </article>
-      <article class="card">
-        <p class="kicker">Trust score</p>
-        <h3>How often the agents earned their keep</h3>
-        <p>Your team rates each reply useful or off. The share rated useful is the trust score. It sets how much the agents may draft, and they never act without your approval.</p>
-      </article>
-    </div>
   </section>
 
   <section id="work" class="wrap">
     <p class="kicker">Proof</p>
     <h2>Collaborations</h2>
     <div class="grid">
-      <article class="card">
-        <p class="kicker">01 · With SONSIEL</p>
-        <h3>Innovation workshops</h3>
-        <p>Nurse-led teams used Aurora, our AI innovation advisor, to move from a health challenge to a plan they could act on.</p>
-        <p class="leave"><strong>Healthero's part:</strong> Aurora and the workshop method.</p>
-      </article>
-      <article class="card">
-        <p class="kicker">02 · With Boston College</p>
-        <h3>Diabetes Prevention Program</h3>
-        <p>A human-centered design partnership to improve diabetes prevention in the Vietnamese American community: research into unmet needs first, then culturally sensitive interventions, and a one-day design hackathon.</p>
-        <p class="leave"><strong>Healthero's part:</strong> Design strategy, the research framework and facilitation, in two phases: Sense, then Shape.</p>
-      </article>
-      <article class="card">
-        <p class="kicker">03 · With Boston College and Mass General Brigham</p>
-        <h3>iSense</h3>
-        <p>A quality improvement pilot to help prevent delirium by knowing each patient as a person: a short intake, a one-page summary, and a stocked comfort cart.</p>
-      </article>
+      <article class="card"><p class="kicker">01 · With SONSIEL</p><h3>Innovation workshops</h3><p>Nurse-led teams used Aurora, our AI innovation advisor, to move from a health challenge to a plan they could act on.</p><p class="leave"><strong>Healthero’s part:</strong> Aurora and the workshop method.</p></article>
+      <article class="card"><p class="kicker">02 · With Boston College</p><h3>Diabetes Prevention Program</h3><p>A human-centered design partnership to improve diabetes prevention in the Vietnamese American community: research into unmet needs first, then culturally sensitive interventions, and a one-day design hackathon.</p><p class="leave"><strong>Healthero’s part:</strong> Design strategy, the research framework and facilitation.</p></article>
+      <article class="card"><p class="kicker">03 · With Boston College and Mass General Brigham</p><h3>iSense</h3><p>A quality improvement pilot to help prevent delirium by knowing each patient as a person: a short intake, a one-page summary, and a stocked comfort cart.</p></article>
     </div>
     <p class="also"><strong>Also:</strong> Nurses You Should Know, a nurse-led Forest Therapy initiative, and illustrations with the University of Pennsylvania.</p>
   </section>
@@ -335,18 +233,180 @@ tr.track p { font-size: 0.8125rem; }
   <section id="contact" class="wrap">
     <p class="kicker">Contact</p>
     <h2>Rachael Acker</h2>
-    <p class="lead contact">Founder, Healthero. For a first conversation about your product, write to <a href="mailto:info@healthero.io">info@healthero.io</a>.</p>
+    <p class="lead contact">Founder, Healthero. Tell us where you are, at zero or at one, and we’ll tell you honestly whether a decision map would help. Write to <a href="mailto:info@healthero.io">info@healthero.io</a>.</p>
   </section>
+
 </main>
 
 <footer class="site">
   <div class="wrap">
-    <p class="line">Agents propose. <strong>A named person decides.</strong></p>
+    <p class="line">Software proposes. <strong>A named person decides.</strong></p>
     <div class="trail">
-      <span>Blueprint / Services / Method / Collaborations / Contact</span>
+      <span>Decision map / Work with us / Method / Collaborations / Contact</span>
       <span>© 2026 Healthero LLC. All rights reserved</span>
     </div>
   </div>
 </footer>
+<!-- The decision map. Edit the words in this block and the page redraws itself. -->
+<script type="application/json" id="map-data">
+{
+ "labels": {
+  "tip": "Empathy",
+  "mid": "Services and information flows",
+  "ag": "Agent and HITL",
+  "bot": "Policies and protocols",
+  "ms": "Real-time monitoring"
+ },
+ "steps": [
+  {
+   "name": "Intake",
+   "intent": "Be known before I arrive.",
+   "patient": "Fills in the same form twice and wonders if anyone reads it.",
+   "clinician": "Meets a stranger and a stack of paper, and reads it in the doorway.",
+   "between": "The first minutes go to data entry, not to the person.",
+   "bias": "Status quo: “it has always been a clipboard.”",
+   "flow": "A phone call, then a paper or portal form that someone retypes into the record. The insurance card is photographed at the desk.",
+   "agent": "Sends the form when the visit is booked. Fills in what is already known. Flags blanks and anything the clinician should read first.",
+   "rung": "Drafts",
+   "human": "The clinician reads the summary and decides what to ask in person. The patient confirms anything filled in for them.",
+   "rule": "A privacy notice and consent to treat come before care. Collect and share only what the visit needs.",
+   "measure": "Intake complete before arrival",
+   "reading": "72%",
+   "goal": "Target: 90%",
+   "state": "Watch",
+   "guard": "Never ask for the same thing twice."
+  },
+  {
+   "name": "Eligibility",
+   "intent": "No surprises about who pays.",
+   "patient": "Assumes the office knows their coverage. Fears a bill they can’t predict.",
+   "clinician": "Finds out the coverage lapsed after the visit is over.",
+   "between": "The money conversation arrives after care, when trust is most exposed.",
+   "bias": "Overconfidence: “they were covered last time.”",
+   "flow": "Checked by hand on each payer’s website, if there is time. Often at check-in. Sometimes never.",
+   "agent": "Checks coverage two days before every visit and again that morning. Shows what the payer answered and how old the answer is. Says “unknown” when the payer is silent.",
+   "rung": "Checks and suggests",
+   "human": "The owner decides what happens when coverage is unknown: see the patient, move the visit, or agree a self-pay price first.",
+   "rule": "Coverage is whatever the payer says for the date of service. A new clinician can’t bill a plan until enrollment takes effect, commonly 90 to 120 days after applying. Self-pay patients are owed an estimate up front.",
+   "measure": "Coverage verified before the visit",
+   "reading": "87%",
+   "goal": "Target: every visit",
+   "state": "Watch",
+   "guard": "Never show “covered” without an answer behind it."
+  },
+  {
+   "name": "Scheduling",
+   "intent": "The right visit, at a time I can keep.",
+   "patient": "Books weeks out, forgets, and feels judged for missing.",
+   "clinician": "Reads a no-show as not caring.",
+   "between": "One missed first visit, and many patients never come back.",
+   "bias": "Blaming the person: “they just don’t show up.”",
+   "flow": "Phone tag, and a calendar only one person understands. Reminders are sent by hand, when someone remembers.",
+   "agent": "Offers times that fit the kind of visit. Sends three reminders with a one-tap way to move the visit. Fills a freed slot from the waitlist.",
+   "rung": "Acts, with approval",
+   "human": "The clinician sets how long a first visit takes and how many fit in a day. A person calls anyone who has missed twice.",
+   "rule": "Visits must match what the clinician is licensed and contracted to provide. Telehealth follows the rules of the state the patient is in.",
+   "measure": "New patients who miss the first visit",
+   "reading": "14%",
+   "goal": "Direction: falling",
+   "state": "On track",
+   "guard": "Score the time slot, never the person."
+  },
+  {
+   "name": "First visit",
+   "intent": "Attention on the person. The record finished the same day.",
+   "patient": "Watches the clinician type.",
+   "clinician": "Finishes notes at the kitchen table.",
+   "between": "Eye contact is traded for a complete note.",
+   "bias": "Sunk cost: “my templates took years to build.”",
+   "flow": "Notes are typed during or after the visit, in a record system built for billing. Desk work can take two hours for every hour with patients.",
+   "agent": "Drafts the note from the visit. Marks every line it is unsure of. Never signs.",
+   "rung": "Drafts",
+   "human": "The clinician reads every line, corrects it and signs. The record is theirs.",
+   "rule": "The clinician who signs is responsible for the record. It must support the care given and the level of service billed. Recording a visit needs the patient’s consent.",
+   "measure": "Notes closed the same day",
+   "reading": "61%",
+   "goal": "Direction: rising",
+   "state": "Off track",
+   "guard": "Never signed unread."
+  },
+  {
+   "name": "Coding",
+   "intent": "The record says what happened, in the payer’s language.",
+   "patient": "Never sees this step, and pays for its mistakes.",
+   "clinician": "Codes low to stay safe, or copies last time.",
+   "between": "Under-coding quietly shrinks what the practice can afford to offer.",
+   "bias": "Anchoring: “I always bill it this way.”",
+   "flow": "The clinician picks codes from memory, or a biller picks them from the note days later.",
+   "agent": "Suggests codes and shows the line of the note behind each one. Checks for pairs that can’t be billed together. Holds a claim it can’t support.",
+   "rung": "Suggests",
+   "human": "The clinician confirms the level of service. Nobody changes a code without a reason on record.",
+   "rule": "Codes come from the national code sets and each payer’s own checks. The note must support the level of service, by the decisions made or the time spent.",
+   "measure": "Claims accepted the first time",
+   "reading": "85%",
+   "goal": "Target: 95%",
+   "state": "Watch",
+   "guard": "Never bill what the note can’t show."
+  },
+  {
+   "name": "Billing and payment",
+   "intent": "Paid once, in full. A bill the patient can read.",
+   "patient": "Gets a statement months later and can’t decode it.",
+   "clinician": "Doesn’t know what is owed, or why a claim was denied.",
+   "between": "A confusing bill undoes a good visit.",
+   "bias": "Trusting the machine: “the billing service is handling it.”",
+   "flow": "A billing service sends the claims and keeps 4 to 10 percent of what it collects. Easy claims get chased. Hard ones age.",
+   "agent": "Sends clean claims daily. Sorts denials by cause and deadline. Drafts appeals and plain-language statements. Never writes off a balance.",
+   "rung": "Drafts",
+   "human": "The owner decides every write-off and every appeal that won’t be filed. A person talks with any patient who disputes a bill.",
+   "rule": "Each payer sets its own filing deadline, appeal window and payment format. Overpayments must be returned. A patient’s balance must match what the payer says they owe.",
+   "measure": "Days from visit to payment",
+   "reading": "41",
+   "goal": "Target: under 35",
+   "state": "Watch",
+   "guard": "Never bill a patient more than the payer says they owe."
+  }
+ ]
+}
+</script>
+<script>
+(function () {
+  var D = JSON.parse(document.getElementById("map-data").textContent), S = D.steps, L = D.labels;
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function part(label, text) { var p = el("p"); var b = el("strong", null, label + " "); p.appendChild(b); p.appendChild(document.createTextNode(text)); return p; }
+  var LANES = [
+    ["tip", L.tip, "gold", function (s) { var c = el("div", "bcard gold"); c.appendChild(part("Patient.", s.patient)); c.appendChild(part("Clinician.", s.clinician)); c.appendChild(part("Between them.", s.between)); c.appendChild(el("p", "bias", s.bias)); return c; }],
+    ["mid", L.mid, "sea", function (s) { return el("div", "bcard sea", s.flow); }],
+    ["ag", L.ag, "agent", function (s) { var c = el("div", "bcard agent"); c.appendChild(part("Software:", s.agent)); c.appendChild(el("span", "rung", s.rung)); c.appendChild(part("A person:", s.human)); return c; }],
+    ["bot", L.bot, "stone", function (s) { return el("div", "bcard stone", s.rule); }],
+    ["ms", L.ms, "plain", function (s) { var c = el("div", "bcard plain meter"); c.appendChild(el("p", "mname", s.measure)); var r = el("p", "reading"); r.appendChild(el("span", "num", s.reading)); r.appendChild(el("span", "state s-" + s.state.replace(/\s/g, "").toLowerCase(), s.state)); c.appendChild(r); c.appendChild(el("p", "goal", s.goal)); c.appendChild(part("Guardrail:", s.guard)); c.appendChild(el("p", "eg", "Example reading")); return c; }]
+  ];
+  var host = document.getElementById("map-table");
+  if (host) {
+    var t = el("table", "bp"), cap = el("caption", "skip", "Made-up decision map for a small practice, in six steps"); t.appendChild(cap);
+    var thead = el("thead"), hr = el("tr"); var c0 = el("th"); c0.scope = "col"; c0.appendChild(el("span", "skip", "Lane")); hr.appendChild(c0);
+    S.forEach(function (s, i) { var th = el("th"); th.scope = "col"; th.appendChild(el("span", "stepno", "Step " + (i + 1))); th.appendChild(el("span", "stepname", s.name)); th.appendChild(el("span", "intent", s.intent)); hr.appendChild(th); });
+    thead.appendChild(hr); t.appendChild(thead);
+    var tb = el("tbody");
+    LANES.forEach(function (ln) { var tr = el("tr"); var th = el("th"); th.scope = "row"; th.appendChild(el("span", "lane " + ln[2], ln[1])); tr.appendChild(th); S.forEach(function (s) { var td = el("td"); td.appendChild(ln[3](s)); tr.appendChild(td); }); tb.appendChild(tr); });
+    t.appendChild(tb); host.appendChild(t);
+  }
+  var cards = document.getElementById("map-cards");
+  if (cards) {
+    var nav = el("div", "steptabs"); nav.setAttribute("role", "tablist"); nav.setAttribute("aria-label", "Steps of the journey");
+    var panel = el("div", "steppanel"); panel.setAttribute("role", "tabpanel"); panel.tabIndex = 0;
+    function show(i) {
+      Array.prototype.forEach.call(nav.children, function (b, k) { b.setAttribute("aria-selected", k === i ? "true" : "false"); b.tabIndex = k === i ? 0 : -1; });
+      panel.textContent = ""; var s = S[i];
+      panel.appendChild(el("p", "stepno", "Step " + (i + 1) + " of " + S.length)); panel.appendChild(el("h3", null, s.name)); panel.appendChild(el("p", "intent", s.intent));
+      LANES.forEach(function (ln) { panel.appendChild(el("p", "lane " + ln[2], ln[1])); panel.appendChild(ln[3](s)); });
+    }
+    S.forEach(function (s, i) { var b = el("button", null, (i + 1) + ". " + s.name); b.type = "button"; b.setAttribute("role", "tab"); b.addEventListener("click", function () { show(i); });
+      b.addEventListener("keydown", function (ev) { var d = ev.key === "ArrowRight" ? 1 : ev.key === "ArrowLeft" ? -1 : 0; if (d) { var n = (i + d + S.length) % S.length; show(n); nav.children[n].focus(); } }); nav.appendChild(b); });
+    cards.appendChild(nav); cards.appendChild(panel); show(0);
+  }
+})();
+</script>
+<noscript><p class="wrap">The decision map needs JavaScript to draw. Its content is in the page source.</p></noscript>
 </body>
 </html>
