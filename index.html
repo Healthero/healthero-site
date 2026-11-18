@@ -70,7 +70,7 @@ ul.plain { margin: 0; padding: 0; list-style: none; display: flex; flex-directio
 .steps li { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; font-size: 0.9375rem; }
 .steps h3 { font-size: 1.25rem; }
 /* Sketches */
-.sketchrow { align-items: start; grid-template-columns: 1fr; max-width: 920px; }
+.grid.two.sketchrow { align-items: start; grid-template-columns: 1fr; max-width: 920px; }
 .sketch { margin: 0; background: #fff; border: 1px solid hsl(var(--border)); padding: 0.75rem; }
 .sketch figcaption { padding: 0.75rem 0.25rem 0.25rem; font-size: 0.9375rem; }
 /* Iceberg legend */
@@ -127,6 +127,8 @@ details.wide summary { display: inline-flex; align-items: center; min-height: 2.
 .stats { display: grid; gap: 1.5rem 2rem; margin: 2rem 0 0; padding: 0; list-style: none; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 .stats li { padding-top: 1rem; border-top: 1px solid hsl(var(--foreground)); display: flex; flex-direction: column; gap: 0.5rem; }
 .stats .num { font-size: 2.75rem; }
+ol.five { margin: 0; padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.9375rem; }
+.path > .kicker { color: hsl(var(--foreground)); }
 ul.ticks { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.45rem; }
 .path .button { align-self: flex-start; }
 dl.qa { display: grid; gap: 0; margin: 2rem 0 0; max-width: 820px; }
@@ -150,7 +152,7 @@ footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-betw
   <a class="brand" href="#top">HEALTHERO</a>
   <nav aria-label="Main">
     <ul>
-      <li><a href="#start">Who it’s for</a></li><li><a href="#map">The map</a></li><li><a href="#how">How it works</a></li><li><a href="#questions">Questions</a></li>
+      <li><a href="#start">Who it’s for</a></li><li><a href="#how">How it works</a></li><li><a href="#work">Our work</a></li>
       <li><a class="button" href="#contact">Talk to us</a></li>
     </ul>
   </nav>
@@ -162,10 +164,10 @@ footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-betw
     <div class="copy">
       <p class="kicker">For nurse innovators and small practices</p>
       <h1>Run your own practice. Keep your own margin.</h1>
-      <p class="lead">Your whole practice on one page: who decides, what software may do, and six numbers that tell you it’s working.</p>
+      <p class="lead">We help nurse innovators and small practices design how the work runs: who decides, what software may do, and how you’ll know it’s working.</p>
       <div class="actions">
         <a class="button large" href="#start">Find your starting point</a>
-        <a class="button large outline" href="#map">See the map</a>
+        <a class="button large outline" href="#how">How it works</a>
       </div>
       <p class="terms">Flat fee. No percentage. We don’t touch your claims.</p>
     </div>
@@ -175,16 +177,6 @@ footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-betw
   </div>
   </div>
 
-  <section class="wrap" aria-labelledby="why-h">
-    <p class="kicker">Why now</p>
-    <h2 id="why-h">Three numbers nobody mentions at the pitch</h2>
-    <ul class="stats">
-      <li><span class="num">4–10%</span><p>of what you collect goes to a typical billing service. <a href="https://neolytix.com/articles/what-is-the-going-rate-for-medical-billing-services/">Neolytix</a></p></li>
-      <li><span class="num">90–120</span><p>days is a common wait to join an insurance plan before you can bill it. <a href="https://learnsignal.com/blog/provider-enrollment-vs-credentialing/">Learnsignal</a></p></li>
-      <li><span class="num">2 hrs</span><p>of desk work for each hour with patients, in one study of physicians. <a href="https://www.healthcareitnews.com/news/all-ehr-documentation-causing-physician-burnout">Healthcare IT News</a></p></li>
-    </ul>
-  </section>
-
   <section id="start" class="wrap">
     <p class="kicker">Who it’s for</p>
     <h2>Pick your starting point</h2>
@@ -192,80 +184,57 @@ footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-betw
       <article class="card path">
         <p class="pill">0 to 1</p>
         <h3>You won the pitch. Now it has to run.</h3>
+        <p class="kicker">Sense and Shape engagement</p>
         <ul class="ticks">
-          <li>Choose how you get paid: self-pay, insurance, or both</li>
-          <li>Start the slow paperwork first, so month four isn’t a surprise</li>
-          <li>See your first patient, from hello to paid, on one page</li>
+          <li>Field research with the people you serve</li>
+          <li>Scenarios, a prototype and a test</li>
+          <li>Your first patient, from hello to paid, on one page</li>
         </ul>
-        <p class="leave"><strong>You get:</strong> a first-year map and three things to do this month.</p>
+        <p class="leave"><strong>You get:</strong> what people need, a tested prototype, and three things to do this month.</p>
         <a class="button" href="mailto:info@healthero.io?subject=I%20won%20a%20pitch">I’m at zero</a>
       </article>
       <article class="card path">
         <p class="pill">1 to steady</p>
         <h3>You’re seeing patients. The admin is eating your evenings.</h3>
+        <p class="kicker">Practice design, then Guide and Govern</p>
         <ul class="ticks">
-          <li>Find where each bounced claim began</li>
-          <li>Judge your billing service on facts, then keep it or leave it</li>
-          <li>Know what software may do without you</li>
+          <li>We design how the work runs, step by step, with your numbers</li>
+          <li><strong>Guide:</strong> we keep it current as your tools and rules change</li>
+          <li><strong>Govern:</strong> we review the numbers with you and adjust what software may do</li>
         </ul>
-        <p class="leave"><strong>You get:</strong> a map of your practice today and the order to fix it in.</p>
+        <p class="leave"><strong>You get:</strong> a plan for your practice today, and the order to fix it in.</p>
         <a class="button" href="mailto:info@healthero.io?subject=I%20run%20a%20practice">I’m at one</a>
       </article>
       <article class="card path" id="programs">
         <p class="pill ahead">Programs</p>
         <h3>Your winners leave with a prize. Send them home with a plan.</h3>
-        <ul class="ticks">
-          <li>One session for your cohort</li>
-          <li>Every team maps its first year</li>
-          <li>You pay once. Winners pay nothing</li>
-        </ul>
-        <p class="leave"><strong>They get:</strong> something to run on Monday.</p>
-        <a class="button" href="mailto:info@healthero.io?subject=Decision%20maps%20for%20our%20cohort">I run a program</a>
+        <p class="kicker">Workshops and hackathons, in five steps</p>
+        <ol class="five">
+          <li><strong>Sense.</strong> What did we see, and who does it touch?</li>
+          <li><strong>Shape.</strong> What would we try first?</li>
+          <li><strong>Build.</strong> The smallest version people can try.</li>
+          <li><strong>Guide.</strong> Keep the plan matched to the real work.</li>
+          <li><strong>Govern.</strong> Watch the numbers. Decide what’s next.</li>
+        </ol>
+        <p class="leave"><strong>Teams get:</strong> a framed problem and a first step. Aurora, our AI advisor, walks them through it. <a href="https://healthero.ai">See Aurora at healthero.ai</a></p>
+        <a class="button" href="mailto:info@healthero.io?subject=A%20workshop%20for%20our%20cohort">I run a program</a>
       </article>
     </div>
+    <p class="also">A flat fee, agreed before we start. Never a share of what you earn.</p>
   </section>
-
-  <div class="stage band">
-  <section id="map" class="wrap">
-    <p class="kicker">The product</p>
-    <h2>The decision map</h2>
-    <p class="lead">Six steps, from a new patient to a paid claim. Each step answers five questions. Tap through it.</p>
-    <p class="lead small"><strong>This is a made-up practice.</strong> The readings are examples. Yours come from your own numbers.</p>
-    <div id="map-cards" class="mapcards"></div>
-    <details class="wide">
-      <summary>See all six steps side by side</summary>
-      <div class="scroll bpwrap" tabindex="0" role="region" aria-label="Decision map, made-up example. Scroll sideways to read all six steps." id="map-table"></div>
-    </details>
-    <div class="grid two sketchrow">
-      <figure class="sketch"><img src="images/sketch-augment-expertise.webp" width="1400" height="788" loading="lazy" alt="Hand-drawn sketch by Rachael Acker. On the left, task navigation: a person works through options, tries, gets stuck, asks for help and finishes the job. On the right, augmented expertise: a loop of a trusted advisor, assessing needs, weighing trade-offs, making a decision with confidence, monitoring, and adjusting until the outcome is reached."><figcaption><strong>A task list says what to do. A decision map says who decides,</strong> what they see when they decide, and how you’ll know it was right.</figcaption></figure>
-    </div>
-  </section>
-  </div>
 
   <section id="how" class="wrap">
     <p class="kicker">How it works</p>
     <h2>Three steps. Then it’s yours.</h2>
     <ol class="steps">
-      <li><span class="pill">01</span><h3>Tell us where you are</h3><p>Zero or one. We’ll say plainly whether a map would help.</p></li>
-      <li><span class="pill">02</span><h3>We map it with you</h3><p>A few sessions, step by step, with your own numbers where you have them.</p></li>
-      <li><span class="pill">03</span><h3>You watch six numbers</h3><p>One per step. You know early when something slips, and what to fix first.</p></li>
+      <li><span class="pill">01</span><h3>Tell us where you are</h3><p>Zero or one. We’ll say plainly whether we can help.</p></li>
+      <li><span class="pill">02</span><h3>We design it with you</h3><p>A few sessions, step by step, with your own numbers where you have them.</p></li>
+      <li><span class="pill">03</span><h3>You watch a few numbers</h3><p>You know early when something slips, and what to fix first.</p></li>
     </ol>
-    <p class="also"><strong>Want it kept current?</strong> We can review the map and the numbers with you each month as your practice, tools and rules change.</p>
     <div class="grid two sketchrow">
       <figure class="sketch"><img src="images/sketch-change-journey.webp" width="1400" height="788" loading="lazy" alt="Hand-drawn sketch by Rachael Acker of how change takes hold. A person says “but I’ve always done it this way.” A triggering event leads to fear of loss, then a decision to change, a guide who reduces the fear, a first try at something new, showing a colleague, and finally value measured and shared."><figcaption>Change sticks when the fear of losing something is met first. We start there.</figcaption></figure>
+      <figure class="sketch"><img src="images/sketch-augment-expertise.webp" width="1400" height="788" loading="lazy" alt="Hand-drawn sketch by Rachael Acker. On the left, task navigation: a person works through options, tries, gets stuck, asks for help and finishes the job. On the right, augmented expertise: a loop of a trusted advisor, assessing needs, weighing trade-offs, making a decision with confidence, monitoring, and adjusting until the outcome is reached."><figcaption>Most software helps you finish a task. We design for the loop on the right: judgment, with support.</figcaption></figure>
     </div>
-  </section>
-
-  <section id="questions" class="wrap">
-    <p class="kicker">Straight answers</p>
-    <h2>What you’d ask us first</h2>
-    <dl class="qa">
-      <div><dt>What does it cost?</dt><dd>A flat fee, quoted before any work starts. Never a share of what you earn.</dd></div>
-      <div><dt>Are you a billing company?</dt><dd>No. We don’t submit claims, pick codes or give legal advice. The map shows where you need those, so you can buy them on purpose.</dd></div>
-      <div><dt>Should I fire my billing service?</dt><dd>Maybe not. A good one earns its fee. <a href="https://www.medicaleconomics.com/view/what-independent-practices-get-wrong-when-they-hire-a-billing-company">The percentage tells you what it costs, not what it collects.</a> The map gives you a fair way to judge.</dd></div>
-      <div><dt>Do I need insurance to start?</dt><dd>Not always. Self-pay removes whole steps and narrows who can afford you. The map shows both routes.</dd></div>
-      <div><dt>Has this worked for a practice?</dt><dd>The decision map is new, and we’d rather say so. The method behind it comes from the nurse-led work below.</dd></div>
-    </dl>
   </section>
 
   <section id="work" class="wrap">
@@ -289,7 +258,7 @@ footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-betw
     <div class="actions" style="margin-top:1.5rem">
       <a class="button large" href="mailto:info@healthero.io?subject=I%20won%20a%20pitch">I’m at zero</a>
       <a class="button large" href="mailto:info@healthero.io?subject=I%20run%20a%20practice">I’m at one</a>
-      <a class="button large outline" href="mailto:info@healthero.io?subject=Decision%20maps%20for%20our%20cohort">I run a program</a>
+      <a class="button large outline" href="mailto:info@healthero.io?subject=A%20workshop%20for%20our%20cohort">I run a program</a>
     </div>
     <p class="lead small">Or write to <a href="mailto:info@healthero.io">info@healthero.io</a>.</p>
   </section>
@@ -305,166 +274,6 @@ footer.site .trail { display: flex; flex-wrap: wrap; justify-content: space-betw
     </div>
   </div>
 </footer>
-<!-- The decision map. Edit the words in this block and the page redraws itself. -->
-<script type="application/json" id="map-data">
-{
- "labels": {
-  "tip": "What people feel",
-  "mid": "How it works today",
-  "ag": "What software may do, and what a person decides",
-  "bot": "Rules that don’t bend",
-  "ms": "How we’ll know it’s working"
- },
- "steps": [
-  {
-   "name": "Intake",
-   "intent": "Be known before I arrive.",
-   "patient": "Fills in the same form twice and wonders if anyone reads it.",
-   "clinician": "Meets a stranger and a stack of paper, and reads it in the doorway.",
-   "between": "The first minutes go to data entry, not to the person.",
-   "bias": "Status quo: “it has always been a clipboard.”",
-   "flow": "A phone call, then a paper or portal form that someone retypes into the record. The insurance card is photographed at the desk.",
-   "agent": "Sends the form when the visit is booked. Fills in what is already known. Flags blanks and anything the clinician should read first.",
-   "rung": "Drafts",
-   "human": "The clinician reads the summary and decides what to ask in person. The patient confirms anything filled in for them.",
-   "rule": "A privacy notice and consent to treat come before care. Collect and share only what the visit needs.",
-   "measure": "Intake complete before arrival",
-   "reading": "72%",
-   "goal": "Target: 90%",
-   "state": "Watch",
-   "guard": "Never ask for the same thing twice."
-  },
-  {
-   "name": "Eligibility",
-   "intent": "No surprises about who pays.",
-   "patient": "Assumes the office knows their coverage. Fears a bill they can’t predict.",
-   "clinician": "Finds out the coverage lapsed after the visit is over.",
-   "between": "The money conversation arrives after care, when trust is most exposed.",
-   "bias": "Overconfidence: “they were covered last time.”",
-   "flow": "Checked by hand on each payer’s website, if there is time. Often at check-in. Sometimes never.",
-   "agent": "Checks coverage two days before every visit and again that morning. Shows what the payer answered and how old the answer is. Says “unknown” when the payer is silent.",
-   "rung": "Checks and suggests",
-   "human": "The owner decides what happens when coverage is unknown: see the patient, move the visit, or agree a self-pay price first.",
-   "rule": "Coverage is whatever the payer says for the date of service. A new clinician can’t bill a plan until enrollment takes effect, commonly 90 to 120 days after applying. Self-pay patients are owed an estimate up front.",
-   "measure": "Coverage verified before the visit",
-   "reading": "87%",
-   "goal": "Target: every visit",
-   "state": "Watch",
-   "guard": "Never show “covered” without an answer behind it."
-  },
-  {
-   "name": "Scheduling",
-   "intent": "The right visit, at a time I can keep.",
-   "patient": "Books weeks out, forgets, and feels judged for missing.",
-   "clinician": "Reads a no-show as not caring.",
-   "between": "One missed first visit, and many patients never come back.",
-   "bias": "Blaming the person: “they just don’t show up.”",
-   "flow": "Phone tag, and a calendar only one person understands. Reminders are sent by hand, when someone remembers.",
-   "agent": "Offers times that fit the kind of visit. Sends three reminders with a one-tap way to move the visit. Fills a freed slot from the waitlist.",
-   "rung": "Acts, with approval",
-   "human": "The clinician sets how long a first visit takes and how many fit in a day. A person calls anyone who has missed twice.",
-   "rule": "Visits must match what the clinician is licensed and contracted to provide. Telehealth follows the rules of the state the patient is in.",
-   "measure": "New patients who miss the first visit",
-   "reading": "14%",
-   "goal": "Direction: falling",
-   "state": "On track",
-   "guard": "Score the time slot, never the person."
-  },
-  {
-   "name": "First visit",
-   "intent": "Attention on the person. The record finished the same day.",
-   "patient": "Watches the clinician type.",
-   "clinician": "Finishes notes at the kitchen table.",
-   "between": "Eye contact is traded for a complete note.",
-   "bias": "Sunk cost: “my templates took years to build.”",
-   "flow": "Notes are typed during or after the visit, in a record system built for billing. Desk work can take two hours for every hour with patients.",
-   "agent": "Drafts the note from the visit. Marks every line it is unsure of. Never signs.",
-   "rung": "Drafts",
-   "human": "The clinician reads every line, corrects it and signs. The record is theirs.",
-   "rule": "The clinician who signs is responsible for the record. It must support the care given and the level of service billed. Recording a visit needs the patient’s consent.",
-   "measure": "Notes closed the same day",
-   "reading": "61%",
-   "goal": "Direction: rising",
-   "state": "Off track",
-   "guard": "Never signed unread."
-  },
-  {
-   "name": "Coding",
-   "intent": "The record says what happened, in the payer’s language.",
-   "patient": "Never sees this step, and pays for its mistakes.",
-   "clinician": "Codes low to stay safe, or copies last time.",
-   "between": "Under-coding quietly shrinks what the practice can afford to offer.",
-   "bias": "Anchoring: “I always bill it this way.”",
-   "flow": "The clinician picks codes from memory, or a biller picks them from the note days later.",
-   "agent": "Suggests codes and shows the line of the note behind each one. Checks for pairs that can’t be billed together. Holds a claim it can’t support.",
-   "rung": "Suggests",
-   "human": "The clinician confirms the level of service. Nobody changes a code without a reason on record.",
-   "rule": "Codes come from the national code sets and each payer’s own checks. The note must support the level of service, by the decisions made or the time spent.",
-   "measure": "Claims accepted the first time",
-   "reading": "85%",
-   "goal": "Target: 95%",
-   "state": "Watch",
-   "guard": "Never bill what the note can’t show."
-  },
-  {
-   "name": "Billing and payment",
-   "intent": "Paid once, in full. A bill the patient can read.",
-   "patient": "Gets a statement months later and can’t decode it.",
-   "clinician": "Doesn’t know what is owed, or why a claim was denied.",
-   "between": "A confusing bill undoes a good visit.",
-   "bias": "Trusting the machine: “the billing service is handling it.”",
-   "flow": "A billing service sends the claims and keeps 4 to 10 percent of what it collects. Easy claims get chased. Hard ones age.",
-   "agent": "Sends clean claims daily. Sorts denials by cause and deadline. Drafts appeals and plain-language statements. Never writes off a balance.",
-   "rung": "Drafts",
-   "human": "The owner decides every write-off and every appeal that won’t be filed. A person talks with any patient who disputes a bill.",
-   "rule": "Each payer sets its own filing deadline, appeal window and payment format. Overpayments must be returned. A patient’s balance must match what the payer says they owe.",
-   "measure": "Days from visit to payment",
-   "reading": "41",
-   "goal": "Target: under 35",
-   "state": "Watch",
-   "guard": "Never bill a patient more than the payer says they owe."
-  }
- ]
-}
-</script>
-<script>
-(function () {
-  var D = JSON.parse(document.getElementById("map-data").textContent), S = D.steps, L = D.labels;
-  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
-  function part(label, text) { var p = el("p"); var b = el("strong", null, label + " "); p.appendChild(b); p.appendChild(document.createTextNode(text)); return p; }
-  var LANES = [
-    ["tip", L.tip, "gold", function (s) { var c = el("div", "bcard gold"); c.appendChild(part("Patient.", s.patient)); c.appendChild(part("Clinician.", s.clinician)); c.appendChild(part("Between them.", s.between)); c.appendChild(el("p", "bias", s.bias)); return c; }],
-    ["mid", L.mid, "sea", function (s) { return el("div", "bcard sea", s.flow); }],
-    ["ag", L.ag, "agent", function (s) { var c = el("div", "bcard agent"); c.appendChild(part("Software:", s.agent)); c.appendChild(el("span", "rung", s.rung)); c.appendChild(part("A person:", s.human)); return c; }],
-    ["bot", L.bot, "stone", function (s) { return el("div", "bcard stone", s.rule); }],
-    ["ms", L.ms, "plain", function (s) { var c = el("div", "bcard plain meter"); c.appendChild(el("p", "mname", s.measure)); var r = el("p", "reading"); r.appendChild(el("span", "num", s.reading)); r.appendChild(el("span", "state s-" + s.state.replace(/\s/g, "").toLowerCase(), s.state)); c.appendChild(r); c.appendChild(el("p", "goal", s.goal)); c.appendChild(part("Guardrail:", s.guard)); c.appendChild(el("p", "eg", "Example reading")); return c; }]
-  ];
-  var host = document.getElementById("map-table");
-  if (host) {
-    var t = el("table", "bp"), cap = el("caption", "skip", "Made-up decision map for a small practice, in six steps"); t.appendChild(cap);
-    var thead = el("thead"), hr = el("tr"); var c0 = el("th"); c0.scope = "col"; c0.appendChild(el("span", "skip", "Lane")); hr.appendChild(c0);
-    S.forEach(function (s, i) { var th = el("th"); th.scope = "col"; th.appendChild(el("span", "stepno", "Step " + (i + 1))); th.appendChild(el("span", "stepname", s.name)); th.appendChild(el("span", "intent", s.intent)); hr.appendChild(th); });
-    thead.appendChild(hr); t.appendChild(thead);
-    var tb = el("tbody");
-    LANES.forEach(function (ln) { var tr = el("tr"); var th = el("th"); th.scope = "row"; th.appendChild(el("span", "lane " + ln[2], ln[1])); tr.appendChild(th); S.forEach(function (s) { var td = el("td"); td.appendChild(ln[3](s)); tr.appendChild(td); }); tb.appendChild(tr); });
-    t.appendChild(tb); host.appendChild(t);
-  }
-  var cards = document.getElementById("map-cards");
-  if (cards) {
-    var nav = el("div", "steptabs"); nav.setAttribute("role", "tablist"); nav.setAttribute("aria-label", "Steps of the journey");
-    var panel = el("div", "steppanel"); panel.setAttribute("role", "tabpanel"); panel.tabIndex = 0;
-    function show(i) {
-      Array.prototype.forEach.call(nav.children, function (b, k) { b.setAttribute("aria-selected", k === i ? "true" : "false"); b.tabIndex = k === i ? 0 : -1; });
-      panel.textContent = ""; var s = S[i];
-      panel.appendChild(el("p", "stepno", "Step " + (i + 1) + " of " + S.length)); panel.appendChild(el("h3", null, s.name)); panel.appendChild(el("p", "intent", s.intent));
-      var g = el("div", "lanes"); LANES.forEach(function (ln) { var d = el("div"); d.appendChild(el("p", "lane " + ln[2], ln[1])); d.appendChild(ln[3](s)); g.appendChild(d); }); panel.appendChild(g);
-    }
-    S.forEach(function (s, i) { var b = el("button", null, (i + 1) + ". " + s.name); b.type = "button"; b.setAttribute("role", "tab"); b.addEventListener("click", function () { show(i); });
-      b.addEventListener("keydown", function (ev) { var d = ev.key === "ArrowRight" ? 1 : ev.key === "ArrowLeft" ? -1 : 0; if (d) { var n = (i + d + S.length) % S.length; show(n); nav.children[n].focus(); } }); nav.appendChild(b); });
-    cards.appendChild(nav); cards.appendChild(panel); show(0);
-  }
-})();
-</script>
-<noscript><p class="wrap">The decision map needs JavaScript to draw. Its content is in the page source.</p></noscript>
+
 </body>
 </html>
